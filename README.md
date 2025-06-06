@@ -1,2 +1,0 @@
-# graphql_cero_expert
-graphql_cero_expert
