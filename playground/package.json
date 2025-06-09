@@ -1,0 +1,22 @@
+{
+  "name": "breaking-bad-graphql-playground",
+  "version": "1.0.0",
+  "description": "Breaking Bad GraphQL Playground con Apollo Server 4",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "start:src": "node src/server.js",
+    "dev:src": "node --watch src/server.js"
+  },
+  "keywords": ["graphql", "apollo-server", "breaking-bad", "playground"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.12.2",
+    "express": "^4.21.2",
+    "graphql": "^16.11.0",
+    "cors": "^2.8.5"
+  }
+}
