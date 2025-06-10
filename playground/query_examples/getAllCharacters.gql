@@ -1,0 +1,12 @@
+# Query: Get all characters with their current vote counts
+query GetAllCharacters {
+  characters {
+    char_id
+    name
+    status
+    occupation
+    portrayed
+    votes
+    img
+  }
+}

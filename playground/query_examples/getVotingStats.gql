@@ -1,0 +1,9 @@
+# Query: Get voting statistics for all characters
+query GetVotingStats {
+  characterStats {
+    char_id
+    name
+    total_votes
+    percentage
+  }
+}

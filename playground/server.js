@@ -1,16 +1,23 @@
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import { makeExecutableSchema } from '@graphql-tools/schema';
+import { WebSocketServer } from 'ws';
+import { useServer } from 'graphql-ws/lib/use/ws';
+import { PubSub } from 'graphql-subscriptions';
 import express from 'express';
 import http from 'http';
 import cors from 'cors';
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 // Obtener __dirname en módulos ES
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+// Crear instancia de PubSub para suscripciones en tiempo real
+const pubsub = new PubSub();
 
 // Cargar datos JSON
 const loadData = () => {
@@ -98,6 +105,30 @@ const typeDefs = `#graphql
   type Mutation {
     voteForCharacter(char_id: Int!): Vote
   }
+
+  type Subscription {
+    voteUpdated: VoteUpdate!
+    characterVotesChanged(char_id: Int): CharacterVoteUpdate!
+    totalVotesChanged: TotalVotesUpdate!
+  }
+
+  type VoteUpdate {
+    vote: Vote!
+    character: Character!
+    totalVotes: Int!
+  }
+
+  type CharacterVoteUpdate {
+    char_id: Int!
+    character_name: String!
+    votes: Int!
+    percentage: Float!
+  }
+
+  type TotalVotesUpdate {
+    totalVotes: Int!
+    topCharacters: [CharacterStats!]!
+  }
 `;
 
 // Resolvers
@@ -157,7 +188,7 @@ const resolvers = {
     }
   },
   Mutation: {
-    voteForCharacter: (_, { char_id }) => {
+    voteForCharacter: async (_, { char_id }) => {
       const character = characters.find(char => parseInt(char.id) === char_id);
       if (!character) {
         throw new Error(`Personaje con ID ${char_id} no encontrado`);
@@ -171,9 +202,95 @@ const resolvers = {
       };
       
       votes.push(vote);
+      
+      // Guardar votos persistentemente
+      try {
+        const votesContent = votes.map(v => JSON.stringify(v)).join('\n') + '\n';
+        writeFileSync(join(__dirname, 'data/votes.json'), votesContent, 'utf-8');
+      } catch (error) {
+        console.warn('⚠️ No se pudo guardar el voto:', error.message);
+      }
+      
       console.log(`🗳️ Nuevo voto para ${character.name} (ID: ${char_id})`);
       
+      // Publicar eventos de suscripción
+      const characterData = {
+        char_id: parseInt(character.id),
+        name: character.name,
+        birthday: character.birthday || 'No disponible',
+        occupation: character.occupation || [character.actor || 'Actor'],
+        img: character.photo || character.img || '',
+        status: character.status || 'Activo',
+        nickname: character.nickname || character.name,
+        appearance: character.appearance || [1, 2, 3, 4, 5],
+        portrayed: character.actor || character.portrayed || 'Desconocido',
+        category: character.category || 'Principal',
+        better_call_saul_appearance: character.better_call_saul_appearance || [],
+        votes: votes.filter(vote => vote.char_id === char_id).length
+      };
+
+      const totalVotes = votes.length;
+      const characterVotes = votes.filter(vote => vote.char_id === char_id).length;
+      
+      // Evento de voto actualizado
+      pubsub.publish('VOTE_UPDATED', {
+        voteUpdated: {
+          vote,
+          character: characterData,
+          totalVotes
+        }
+      });
+      
+      // Evento de votos del personaje específico
+      pubsub.publish(`CHARACTER_VOTES_${char_id}`, {
+        characterVotesChanged: {
+          char_id,
+          character_name: character.name,
+          votes: characterVotes,
+          percentage: totalVotes > 0 ? (characterVotes / totalVotes) * 100 : 0
+        }
+      });
+      
+      // Evento de votos totales
+      const topCharacters = characters
+        .map(char => {
+          const charVotes = votes.filter(vote => vote.char_id === parseInt(char.id)).length;
+          return {
+            char_id: parseInt(char.id),
+            name: char.name,
+            total_votes: charVotes,
+            percentage: totalVotes > 0 ? (charVotes / totalVotes) * 100 : 0
+          };
+        })
+        .sort((a, b) => b.total_votes - a.total_votes)
+        .slice(0, 5);
+      
+      pubsub.publish('TOTAL_VOTES_CHANGED', {
+        totalVotesChanged: {
+          totalVotes,
+          topCharacters
+        }
+      });
+      
       return vote;
+    }
+  },
+  Subscription: {
+    voteUpdated: {
+      subscribe: () => pubsub.asyncIterator(['VOTE_UPDATED'])
+    },
+    characterVotesChanged: {
+      subscribe: (_, { char_id }) => {
+        if (char_id) {
+          return pubsub.asyncIterator([`CHARACTER_VOTES_${char_id}`]);
+        }
+        // Si no se especifica char_id, suscribirse a todos los personajes
+        const allCharacterEvents = characters.map(char => `CHARACTER_VOTES_${parseInt(char.id)}`);
+        return pubsub.asyncIterator(allCharacterEvents);
+      }
+    },
+    totalVotesChanged: {
+      subscribe: () => pubsub.asyncIterator(['TOTAL_VOTES_CHANGED'])
     }
   }
 };
@@ -185,11 +302,52 @@ async function startPlaygroundServer() {
   // Crear servidor HTTP
   const httpServer = http.createServer(app);
 
-  // Crear servidor Apollo
-  const server = new ApolloServer({
+  // Crear schema ejecutable
+  const schema = makeExecutableSchema({
     typeDefs,
     resolvers,
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  });
+
+  // Crear servidor WebSocket para suscripciones
+  const wsServer = new WebSocketServer({
+    server: httpServer,
+    path: '/graphql',
+  });
+
+  // Configurar el servidor WebSocket
+  const serverCleanup = useServer({ 
+    schema,
+    onConnect: (ctx) => {
+      console.log('🔌 Cliente WebSocket conectado');
+      return true;
+    },
+    onDisconnect: (ctx, code, reason) => {
+      console.log('🔌 Cliente WebSocket desconectado:', reason);
+    },
+    onSubscribe: (ctx, msg) => {
+      console.log('📡 Nueva suscripción:', msg.payload.query?.substring(0, 50) + '...');
+      return undefined;
+    },
+    onComplete: (ctx, msg) => {
+      console.log('✅ Suscripción completada');
+    },
+  }, wsServer);
+
+  // Crear servidor Apollo
+  const server = new ApolloServer({
+    schema,
+    plugins: [
+      ApolloServerPluginDrainHttpServer({ httpServer }),
+      {
+        async serverWillStart() {
+          return {
+            async drainServer() {
+              await serverCleanup.dispose();
+            },
+          };
+        },
+      },
+    ],
   });
 
   // Inicializar Apollo Server
@@ -213,18 +371,34 @@ async function startPlaygroundServer() {
     res.send(`
       <h1>🎬 Breaking Bad GraphQL Playground</h1>
       <p>Explora el universo de Breaking Bad a través de GraphQL</p>
+      
       <h2>🔗 Enlaces:</h2>
       <ul>
-        <li><a href="/graphql" target="_blank">📊 Apollo Studio (GraphQL Playground)</a></li>
+        <li><a href="/graphql" target="_blank">📊 GraphQL Playground (Local)</a></li>
         <li><a href="/photos" target="_blank">📸 Galería de Personajes</a></li>
+        <li><a href="/api/characters" target="_blank">🔗 API REST</a></li>
       </ul>
+      
+      <h2>🔌 WebSocket Subscriptions</h2>
+      <div style="background: #f0f8ff; padding: 15px; border-radius: 5px; margin: 10px 0;">
+        <h3>⚠️ Important for Subscriptions:</h3>
+        <p><strong>Use LOCAL GraphQL Playground</strong> instead of Apollo Studio for WebSocket subscriptions:</p>
+        <p>🌐 <a href="/graphql" target="_blank"><strong>http://localhost:4001/graphql</strong></a></p>
+        <p>Apollo Studio (HTTPS) cannot connect to local WebSocket servers (ws://) due to browser security.</p>
+      </div>
+      
       <h2>📊 Estadísticas:</h2>
       <ul>
         <li>Personajes disponibles: ${characters.length}</li>
         <li>Votos registrados: ${votes.length}</li>
+        <li>🔴 WebSockets habilitados: ws://localhost:4001/graphql</li>
       </ul>
+      
       <h2>🧪 Consultas de Ejemplo:</h2>
-      <pre><code>
+      <details>
+        <summary>📈 Queries & Mutations</summary>
+        <pre><code>
+# Obtener personajes
 query {
   characters {
     char_id
@@ -234,6 +408,7 @@ query {
   }
 }
 
+# Votar por personaje
 mutation {
   voteForCharacter(char_id: 1) {
     id
@@ -241,7 +416,52 @@ mutation {
     voted_at
   }
 }
-      </code></pre>
+        </code></pre>
+      </details>
+      
+      <details>
+        <summary>🔔 Subscriptions (Real-time)</summary>
+        <pre><code>
+# Actualizaciones de votos en tiempo real
+subscription {
+  voteUpdated {
+    vote {
+      character_name
+      voted_at
+    }
+    totalVotes
+  }
+}
+
+# Cambios en votos de personaje específico
+subscription {
+  characterVotesChanged(char_id: 1) {
+    character_name
+    votes
+    percentage
+  }
+}
+
+# Estadísticas totales
+subscription {
+  totalVotesChanged {
+    totalVotes
+    topCharacters {
+      name
+      total_votes
+    }
+  }
+}
+        </code></pre>
+      </details>
+      
+      <h2>🛠️ Cómo probar Subscriptions:</h2>
+      <ol>
+        <li>Abre <a href="/graphql" target="_blank">GraphQL Playground local</a></li>
+        <li>Ejecuta una subscription en una pestaña</li>
+        <li>Ejecuta una mutation en otra pestaña</li>
+        <li>¡Observa las actualizaciones en tiempo real!</li>
+      </ol>
     `);
   });
 
@@ -267,10 +487,12 @@ mutation {
   
   console.log(`🎬 Breaking Bad GraphQL Playground listo en http://localhost:${PORT}/`);
   console.log(`📊 GraphQL endpoint: http://localhost:${PORT}/graphql`);
+  console.log(`🔌 WebSocket endpoint: ws://localhost:${PORT}/graphql`);
   console.log(`📸 Fotos disponibles en: http://localhost:${PORT}/photos/`);
   console.log(`🔗 API REST: http://localhost:${PORT}/api/characters`);
   console.log(`\n🎭 Personajes cargados: ${characters.length}`);
   console.log(`📊 Votos totales: ${votes.length}`);
+  console.log(`🔴 Suscripciones WebSocket habilitadas`);
 }
 
 // Iniciar el servidor

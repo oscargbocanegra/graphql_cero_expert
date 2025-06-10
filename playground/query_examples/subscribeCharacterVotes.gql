@@ -1,0 +1,14 @@
+# Subscription: Watch vote changes for a specific character
+subscription OnCharacterVotesChanged($charId: Int) {
+  characterVotesChanged(char_id: $charId) {
+    char_id
+    character_name
+    votes
+    percentage
+  }
+}
+
+# Variables (optional - leave empty to watch all characters):
+# {
+#   "charId": 1
+# }

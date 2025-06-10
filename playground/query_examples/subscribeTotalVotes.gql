@@ -1,0 +1,12 @@
+# Subscription: Watch total voting statistics
+subscription OnTotalVotesChanged {
+  totalVotesChanged {
+    totalVotes
+    topCharacters {
+      char_id
+      name
+      total_votes
+      percentage
+    }
+  }
+}
