@@ -293,4 +293,4 @@ npm run start:both
 
 ---
 
-⭐ **Happy GraphQL Learning!** 🎓
+⭐ **Happy GraphQL Learning!** 🎓.
