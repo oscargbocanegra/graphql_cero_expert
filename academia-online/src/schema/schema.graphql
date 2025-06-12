@@ -1,0 +1,70 @@
+type Query {
+    "A query to fetch all courses"
+    estudiantes: [Estudiante!]!
+    
+    "A query to fetch a specific student by their ID"
+    estudiante(id: ID!): Estudiante
+    }
+
+    "A simple query to fetch all students"
+    type Estudiante {
+    "A unique identifier for the student"
+    id: ID!
+    "The name of the student"
+    name: String!
+    "The surname of the student"
+    email: String!
+    "The email of the student"
+    website: String
+    "The website of the student"
+    courses: [Curso!]!
+    }
+
+    "A query to fetch a specific course by its ID"
+type Curso {
+    "A unique identifier for the course"
+    id: ID!
+    "The title of the course"
+    title: String!
+    "A brief description of the course"
+    description: String!
+    "The number of classes in the course"
+    clases: Int!
+    "The estimated time to complete the course in hours"
+    time: Float!
+    "The path to the course details page"
+    logo: String!
+    "The level of the course (e.g., Beginner, Intermediate, Advanced)"
+    level: Nivel!
+    "The path to the course details page"
+     path: String!
+    "The teacher of the course"
+     teacher: String!
+    "A list of reviews for the course"
+     students: [Estudiante]
+    "A list of reviews for the course"
+    reviews: [Valoracion!]!
+    }
+
+    "An enumeration representing the level of a course"
+    enum Nivel {
+    "Beginner level course"
+    BEGINNER
+    "Intermediate level course"
+    MEDIUM
+    "Advanced level course"
+    ADVANCED
+    }
+
+    "A review for a course"
+    type Valoracion {
+    "A unique identifier for the review"
+    id: ID!
+    "The name of the reviewer"
+    name: String!
+    "The rating given by the reviewer"
+    points: Float!
+    "The comment provided by the reviewer"
+    comment: String
+    }
+
