@@ -4,6 +4,9 @@ import { database } from "../data/data.store";
 
 const query : IResolvers = {
     Query: {
+        estudiantes(): any {
+            return database.estudiantes;
+        },
         estudiante(__: void, { id }): any {
             const resultado = database.estudiantes.filter(estudiante => estudiante.id === id) [0];
             if (resultado === undefined) {
@@ -15,8 +18,10 @@ const query : IResolvers = {
                 }
             }
             return resultado;
+        },
+        cursos(): any {
+            return database.cursos;
         }
-        
     }
 }
 

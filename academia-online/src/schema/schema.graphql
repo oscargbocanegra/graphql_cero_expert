@@ -1,9 +1,12 @@
 type Query {
     "A query to fetch all courses"
     estudiantes: [Estudiante!]!
-    
+
     "A query to fetch a specific student by their ID"
     estudiante(id: ID!): Estudiante
+
+    "A query to fetch all courses"
+    cursos: [Curso!]!
     }
 
     "A simple query to fetch all students"
