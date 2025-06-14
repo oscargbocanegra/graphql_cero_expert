@@ -83,7 +83,7 @@ type Curso {
     name: String!
     "The rating given by the reviewer"
     points: Float!
-    "The comment provided by the reviewer".
+    "The comment provided by the reviewer."
     comment: String
     }
 

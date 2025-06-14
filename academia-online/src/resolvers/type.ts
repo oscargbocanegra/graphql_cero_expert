@@ -12,7 +12,20 @@ const type: IResolvers = {
             });
             return cursosLista;
         }
+    },
+    Curso: {
+        students: parent => {
+            const lstaEstudiantes: Array<any> = [];
+            const idCurso = parent.id;
+            database.estudiantes.map((estudiante: any) => {
+                if (estudiante.courses.filter( (id: any) => id === idCurso) > 0 ) {
+                lstaEstudiantes.push(estudiante)
+                }
+        });
+            return lstaEstudiantes;
+        },
+        path: parent => `https://www.udemy.com${parent.path}`
+        }
     }
-}
 
 export default type;
