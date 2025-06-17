@@ -26,6 +26,36 @@ type Query {
     }
 
     "A query to fetch a specific course by its ID"
+
+
+type Mutation {
+    "A mutation to create a new course"
+    cursoNuevo(curso: CursoInput!): Curso!
+    modificarCurso(curso: CursoInput!): Curso!
+    eliminarCurso(id: ID!): Curso!
+}
+
+input CursoInput {
+    "A unique identifier for the course"
+    id: ID
+    "The title of the course"
+    title: String!
+    "A brief description of the course"
+    description: String!
+    "The number of classes in the course"
+    clases: Int!
+    "The estimated time to complete the course in hours"
+    time: Float!
+    "The path to the course details page"
+    logo: String!
+    "The level of the course (e.g., Beginner, Intermediate, Advanced)"
+    level: Nivel!
+    "The path to the course details page"
+     path: String!
+    "The teacher of the course"
+     teacher: String!
+}
+
 type Curso {
     "A unique identifier for the course"
     id: ID!
