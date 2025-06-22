@@ -1,0 +1,368 @@
+{
+	"info": {
+		"_postman_id": "19dbc3ae-cf54-4494-b4b5-3941130aeded",
+		"name": "Api-Graphql-Academia-online",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5936922"
+	},
+	"item": [
+		{
+			"name": "Query",
+			"item": [
+				{
+					"name": "Estudiantes",
+					"item": [
+						{
+							"name": "Lista Alumnos",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "{\r\n    estudiantes{\r\n            id\r\n    name\r\n    email\r\n    website\r\n    }\r\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5200/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "InformacionAlumno",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "{\r\n    estudiante (id: \"1\"){\r\n        id\r\n        name\r\n        email\r\n    }\r\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5200/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Inf-alum-query-variable",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query getStudent($id: ID!){\r\n    estudiante (id: $id){\r\n        id\r\n        name\r\n        email\r\n    }\r\n}",
+										"variables": "{\r\n    \"id\": \"5\"\r\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5200/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Inf-alum-query-variable-alias",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query getStudent($id: ID!, $id2: ID!){\r\n    uno: estudiante (id: $id){\r\n        ... datosEstudiante\r\n    }\r\n    dos: estudiante (id: $id2){\r\n        ...datosEstudiante\r\n    }\r\n}\r\n\r\nfragment datosEstudiante on Estudiante {\r\n        id\r\n        name\r\n        email\r\n\r\n}",
+										"variables": "{\r\n    \"id\": \"1\",\r\n    \"id2\": \"2\"\r\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5200/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "cursos",
+					"item": [
+						{
+							"name": "Lista-cursos",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "{\r\n    cursos{\r\n    id\r\n    title\r\n    description\r\n    clases\r\n    logo\r\n    level\r\n    path\r\n    time\r\n    students{\r\n        id\r\n        name\r\n        email\r\n    }\r\n\r\n    }\r\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5200/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Inf-curso",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "{\r\n    curso (curso: \"1\"){\r\n        id\r\n        title\r\n        description\r\n        clases\r\n        logo\r\n        level\r\n        path\r\n    }\r\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5200/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Inf-curso-query-variable",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query getCourse($curso: ID!)\r\n    {\r\n        curso (curso: $curso){\r\n            id\r\n            title\r\n            description\r\n            clases\r\n            logo\r\n            level\r\n            path\r\n            time\r\n            students{\r\n                id\r\n                name\r\n                email\r\n            }\r\n        }\r\n    }",
+										"variables": "{\r\n    \"curso\": \"1\"\r\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5200/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Inf-curso-query-variable-alias",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query getCourses($idcursoUno: ID!, $idcursoDos: ID!)\r\n    {\r\n        cursoUno: curso (curso: $idcursoUno){\r\n            ... cursoFragment\r\n        }\r\n\r\n        cursoDos: curso (curso: $idcursoDos){\r\n            ... cursoFragment           \r\n        }\r\n    }\r\n\r\n    fragment cursoFragment on Curso {\r\n        id\r\n        title\r\n        description\r\n        clases\r\n        logo\r\n        level\r\n        path\r\n        time\r\n        students{\r\n            id\r\n            name\r\n            email\r\n        }\r\n    }",
+										"variables": "{\r\n    \"idcursoUno\": \"1\",\r\n    \"idcursoDos\": \"2\"\r\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5200/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Inf-curso-query-variable-alias-include",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query getCourses($idcursoUno: ID!, $idcursoDos: ID!, $include: Boolean!)\r\n    {\r\n        cursoUno: curso (curso: $idcursoUno){\r\n            ... cursoFragment\r\n        }\r\n\r\n        cursoDos: curso (curso: $idcursoDos){\r\n            ... cursoFragment           \r\n        }\r\n    }\r\n\r\n    fragment cursoFragment on Curso {\r\n        id\r\n        title @include(if: $include)\r\n        description @include(if: $include)\r\n        clases\r\n        logo\r\n        level\r\n        path\r\n        time\r\n        students{\r\n            id\r\n            name\r\n            email\r\n        }\r\n    }",
+										"variables": "{\r\n    \"idcursoUno\": \"1\",\r\n    \"idcursoDos\": \"2\",\r\n    \"include\": false\r\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5200/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Inf-curso-query-variable-alias-skyp",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query getCourses($idcursoUno: ID!, $idcursoDos: ID!, $skip: Boolean!)\r\n    {\r\n        cursoUno: curso (curso: $idcursoUno){\r\n            ... cursoFragment\r\n        }\r\n\r\n        cursoDos: curso (curso: $idcursoDos){\r\n            ... cursoFragment           \r\n        }\r\n    }\r\n\r\n    fragment cursoFragment on Curso {\r\n        id\r\n        title @skip(if: $skip)\r\n        description @skip(if: $skip)\r\n        clases\r\n        logo\r\n        level\r\n        path\r\n        time\r\n        students{\r\n            id\r\n            name\r\n            email\r\n        }\r\n    }",
+										"variables": "{\r\n    \"idcursoUno\": \"1\",\r\n    \"idcursoDos\": \"2\",\r\n    \"skip\": true\r\n}"
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5200/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5200",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Mutation",
+			"item": [
+				{
+					"name": "InsertarCurso",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation nuevoCurso($curso: CursoInput!){\r\n  cursoNuevo(curso: $curso){\r\n    id\r\n    title,\r\n    description   \r\n  }\r\n}",
+								"variables": "{\r\n  \"curso\": {\r\n    \"title\":\"Aprendiendo Graphql\",\r\n    \"description\": \"Vamos a aprender Graphql\",\r\n    \"clases\": 300,\r\n\t\"time\": 34.8,\r\n  \t\"logo\":  \"\",\r\n    \"path\": \"\",\r\n    \"level\": \"EXPERT\",\r\n    \"teacher\": \"Anartz Murgrika ledo\"\r\n  }\r\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5200/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5200",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ModificarCurso",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation modificarCurso($curso: CursoInput!){\r\n  modificarCurso(curso: $curso){\r\n    id\r\n    title\r\n    description\r\n    clases\r\n  }\r\n}",
+								"variables": "{\r\n  \"curso\": {\r\n    \"id\": \"5\",\r\n    \"title\":\"Aprendiendo Graphql\",\r\n    \"description\": \"Vamos a aprender Graphql\",\r\n    \"clases\": 150,\r\n\t  \"time\": 34.8,\r\n  \t\"logo\":  \"\",\r\n    \"path\": \"\",\r\n    \"level\": \"EXPERT\",\r\n    \"teacher\": \"Anartz Murgrika ledo\"\r\n  }\r\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5200/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5200",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarCurso",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation borrarCurso($curso: ID!){\r\n  eliminarCurso(id: $curso){\r\n    id\r\n    title\r\n    description\r\n    clases\r\n    \r\n  }\r\n}",
+								"variables": "{\r\n  \"curso\": \"5\"\r\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5200/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5200",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
