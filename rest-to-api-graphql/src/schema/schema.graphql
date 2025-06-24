@@ -1,10 +1,21 @@
 type Query {
-    hello: String!
-    helloWithName(name: String!): String!
-    helloToGraphQLCourse: String!
-    list: [String]
+    seasonsList: [Sessions!]!
 }
 
-type Mutation {
-    add(value: String!): [String]
-}
+type Sessions {
+    meeting_key: Int!
+    session_key: Int!
+    location: String!
+    date_start: String!
+    date_end: String!
+    session_type: String!
+    session_name: String!
+    country_key: Int!
+    country_code: String!
+    country_name: String!
+    circuit_key: Int!
+    circuit_short_name: String!
+    gmt_offset: String!
+    year: Int!
+}   
+
