@@ -3,6 +3,17 @@ import { F1 } from "./data-source";
 export class SeasonsData extends F1 {
     constructor() {
         super();
-        this.baseURL = "https://api.openf1.org/v1/";
+    }
+
+    // Método específico para obtener sesiones
+    async getSessions(year?: string) {
+        let url = 'sessions';
+        
+        // Si hay año, agregarlo como parámetro
+        if (year) {
+            url += `?year=${year}`;
+        }
+        
+        return this.get(url);
     }
 }

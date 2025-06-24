@@ -1,5 +1,29 @@
 type Query {
     seasonsList: [Sessions!]!
+    carData(
+        driver_number: Int
+        session_key: Int
+        meeting_key: Int
+        speed: String
+        date: String
+        rpm: String
+        throttle: String
+        brake: Int
+        drs: Int
+        n_gear: Int
+        # Parámetros de paginación
+        limit: Int
+        offset: Int
+    ): CarDataResponse!
+    
+    drivers(
+        driver_number: Int
+        session_key: Int
+        meeting_key: Int
+        country_code: String
+        team_name: String
+        name_acronym: String
+    ): [Driver!]!
 }
 
 type Sessions {
@@ -17,5 +41,48 @@ type Sessions {
     circuit_short_name: String!
     gmt_offset: String!
     year: Int!
-}   
+}
+
+type CarData {
+    brake: Int!
+    date: String!
+    driver_number: Int!
+    drs: Int!
+    meeting_key: Int!
+    n_gear: Int!
+    rpm: Int!
+    session_key: Int!
+    speed: Int!
+    throttle: Int!
+}
+
+# Tipos para paginación
+type CarDataResponse {
+    data: [CarData!]!
+    pagination: PaginationInfo!
+}
+
+type PaginationInfo {
+    total: Int!
+    limit: Int!
+    offset: Int!
+    hasNext: Boolean!
+    hasPrevious: Boolean!
+}
+
+type Driver {
+    broadcast_name: String
+    country_code: String
+    driver_number: Int
+    first_name: String
+    full_name: String
+    headshot_url: String
+    last_name: String
+    meeting_key: Int
+    name_acronym: String
+    session_key: Int
+    team_colour: String
+    team_name: String
+}
+
 

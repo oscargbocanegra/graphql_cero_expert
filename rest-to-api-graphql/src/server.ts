@@ -23,7 +23,9 @@ async function init() {
         introspection: true, // Necesario
         dataSources: () => ({
             // Aquí puedes añadir tus data sources
-            seasons: new dataSources.SeasonsData()
+            seasons: new dataSources.SeasonsData(),
+            cardata: new dataSources.CarData(),
+            drivers: new dataSources.DriversData()
         })
     });
 
