@@ -25,7 +25,10 @@ async function init() {
             // Aquí puedes añadir tus data sources
             seasons: new dataSources.SeasonsData(),
             cardata: new dataSources.CarData(),
-            drivers: new dataSources.DriversData()
+            drivers: new dataSources.DriversData(),
+            intervals: new dataSources.IntervalsData(),
+            laps: new dataSources.LapsData(),
+            location: new dataSources.LocationData()
         })
     });
 

@@ -85,6 +85,54 @@ const query: IResolvers = {
                 console.error('Error fetching drivers:', error);
                 return [];
             }
+        },
+        
+        async intervals(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.intervals.getIntervals(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching intervals:', error);
+                return [];
+            }
+        },
+        
+        async laps(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.laps.getLaps(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching laps:', error);
+                return [];
+            }
+        },
+        
+        async location(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.location.getLocation(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching location:', error);
+                return [];
+            }
         }
     }
 };

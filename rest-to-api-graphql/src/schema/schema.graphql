@@ -24,6 +24,35 @@ type Query {
         team_name: String
         name_acronym: String
     ): [Driver!]!
+    
+    intervals(
+        driver_number: Int
+        session_key: Int
+        meeting_key: Int
+        date: String
+        interval: String
+        gap_to_leader: String
+    ): [Interval!]!
+    
+    laps(
+        driver_number: Int
+        session_key: Int
+        meeting_key: Int
+        lap_number: Int
+        date_start: String
+        lap_duration: String
+        is_pit_out_lap: Boolean
+    ): [Lap!]!
+    
+    location(
+        driver_number: Int
+        session_key: Int
+        meeting_key: Int
+        date: String
+        x: String
+        y: String
+        z: String
+    ): [Location!]!
 }
 
 type Sessions {
@@ -83,6 +112,44 @@ type Driver {
     session_key: Int
     team_colour: String
     team_name: String
+}
+
+type Interval {
+    date: String
+    driver_number: Int
+    gap_to_leader: Float
+    interval: Float
+    meeting_key: Int
+    session_key: Int
+}
+
+type Lap {
+    date_start: String
+    driver_number: Int
+    duration_sector_1: Float
+    duration_sector_2: Float
+    duration_sector_3: Float
+    i1_speed: Int
+    i2_speed: Int
+    is_pit_out_lap: Boolean
+    lap_duration: Float
+    lap_number: Int
+    meeting_key: Int
+    segments_sector_1: [Int]
+    segments_sector_2: [Int]
+    segments_sector_3: [Int]
+    session_key: Int
+    st_speed: Int
+}
+
+type Location {
+    date: String
+    driver_number: Int
+    meeting_key: Int
+    session_key: Int
+    x: Int
+    y: Int
+    z: Int
 }
 
 
