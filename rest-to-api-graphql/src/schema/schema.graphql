@@ -53,6 +53,17 @@ type Query {
         y: String
         z: String
     ): [Location!]!
+    
+    meetings(
+        meeting_key: Int
+        year: Int
+        country_name: String
+        country_code: String
+        circuit_short_name: String
+        meeting_name: String
+        location: String
+        date_start: String
+    ): [Meeting!]!
 }
 
 type Sessions {
@@ -150,6 +161,21 @@ type Location {
     x: Int
     y: Int
     z: Int
+}
+
+type Meeting {
+    circuit_key: Int
+    circuit_short_name: String
+    country_code: String
+    country_key: Int
+    country_name: String
+    date_start: String
+    gmt_offset: String
+    location: String
+    meeting_key: Int
+    meeting_name: String
+    meeting_official_name: String
+    year: Int
 }
 
 

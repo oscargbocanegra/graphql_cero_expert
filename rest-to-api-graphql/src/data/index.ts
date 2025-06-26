@@ -4,6 +4,7 @@ import { DriversData } from './data-drivers';
 import { IntervalsData } from './data-intervals';
 import { LapsData } from './data-laps';
 import { LocationData } from './data-location';
+import { MeetingsData } from './data-meetings';
 
 
 export const dataSources = {
@@ -12,5 +13,6 @@ export const dataSources = {
     DriversData,
     IntervalsData,
     LapsData,
-    LocationData
+    LocationData,
+    MeetingsData
 }

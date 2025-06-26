@@ -28,7 +28,8 @@ async function init() {
             drivers: new dataSources.DriversData(),
             intervals: new dataSources.IntervalsData(),
             laps: new dataSources.LapsData(),
-            location: new dataSources.LocationData()
+            location: new dataSources.LocationData(),
+            meetings: new dataSources.MeetingsData()
         })
     });
 
