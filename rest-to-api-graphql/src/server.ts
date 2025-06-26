@@ -29,7 +29,8 @@ async function init() {
             intervals: new dataSources.IntervalsData(),
             laps: new dataSources.LapsData(),
             location: new dataSources.LocationData(),
-            meetings: new dataSources.MeetingsData()
+            meetings: new dataSources.MeetingsData(),
+            pit: new dataSources.PitData()
         })
     });
 

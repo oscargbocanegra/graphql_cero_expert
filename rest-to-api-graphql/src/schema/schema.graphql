@@ -64,6 +64,15 @@ type Query {
         location: String
         date_start: String
     ): [Meeting!]!
+    
+    pit(
+        driver_number: Int
+        session_key: Int
+        meeting_key: Int
+        lap_number: Int
+        date: String
+        pit_duration: String
+    ): [Pit!]!
 }
 
 type Sessions {
@@ -176,6 +185,15 @@ type Meeting {
     meeting_name: String
     meeting_official_name: String
     year: Int
+}
+
+type Pit {
+    date: String
+    driver_number: Int
+    lap_number: Int
+    meeting_key: Int
+    pit_duration: Float
+    session_key: Int
 }
 
 
