@@ -34,6 +34,58 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Con Variables - Análisis de datos del auto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query CarDataAnalysis($driverNumber: Int!, $sessionKey: Int!, $minSpeed: String, $limit: Int) {\r\n  carData(\r\n    driver_number: $driverNumber\r\n    session_key: $sessionKey\r\n    speed: $minSpeed\r\n    limit: $limit\r\n    offset: 0\r\n  ) {\r\n    data {\r\n      speed\r\n      throttle\r\n      brake\r\n      rpm\r\n      drs\r\n      n_gear\r\n      date\r\n      driver_number\r\n      session_key\r\n    }\r\n    pagination {\r\n      total\r\n      limit\r\n      offset\r\n      hasNext\r\n      hasPrevious\r\n    }\r\n  }\r\n}",
+								"variables": "{\r\n  \"driverNumber\": 55,\r\n  \"sessionKey\": 9159,\r\n  \"minSpeed\": \">=300\",\r\n  \"limit\": 20\r\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Datos de frenado intenso",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query HeavyBraking {\r\n  carData(\r\n    session_key: 9159\r\n    brake: 1\r\n    speed: \">200\"\r\n    limit: 15\r\n  ) {\r\n    data {\r\n      speed\r\n      throttle\r\n      brake\r\n      date\r\n      driver_number\r\n    }\r\n    pagination {\r\n      total\r\n      hasNext\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1000,6 +1052,437 @@
 							"graphql": {
 								"query": "query {\r\n  seasonsList {\r\n    meeting_key\r\n    session_key\r\n    country_name\r\n    circuit_short_name\r\n    country_key\r\n  }\r\n}",
 								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "11-Stints",
+			"item": [
+				{
+					"name": "Todos los stints de una sesión",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  stints(session_key: 9165) {\r\n    driver_number\r\n    stint_number\r\n    compound\r\n    lap_start\r\n    lap_end\r\n    tyre_age_at_start\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stints con neumáticos usados (edad >= 3)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query UsedTyreStints {\r\n  stints(\r\n    session_key: 9165\r\n    tyre_age_at_start: \">=3\"\r\n  ) {\r\n    driver_number\r\n    stint_number\r\n    compound\r\n    lap_start\r\n    lap_end\r\n    tyre_age_at_start\r\n    meeting_key\r\n    session_key\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stints de un piloto específico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query DriverStints {\r\n  stints(\r\n    session_key: 9165\r\n    driver_number: 16\r\n  ) {\r\n    stint_number\r\n    compound\r\n    lap_start\r\n    lap_end\r\n    tyre_age_at_start\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Solo neumáticos blandos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query SoftTyreStints {\r\n  stints(\r\n    session_key: 9165\r\n    compound: \"SOFT\"\r\n  ) {\r\n    driver_number\r\n    stint_number\r\n    lap_start\r\n    lap_end\r\n    tyre_age_at_start\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Con Variables - Análisis completo de stints",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query StintAnalysis($sessionKey: Int!, $compound: String, $minAge: String) {\r\n  stints(\r\n    session_key: $sessionKey\r\n    compound: $compound\r\n    tyre_age_at_start: $minAge\r\n  ) {\r\n    driver_number\r\n    stint_number\r\n    compound\r\n    lap_start\r\n    lap_end\r\n    tyre_age_at_start\r\n    meeting_key\r\n    session_key\r\n  }\r\n}",
+								"variables": "{\r\n  \"sessionKey\": 9165,\r\n  \"compound\": \"MEDIUM\",\r\n  \"minAge\": \">=2\"\r\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "12-Team-Radio",
+			"item": [
+				{
+					"name": "Radio de un piloto específico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  teamRadio(\r\n    session_key: 9158\r\n    driver_number: 11\r\n  ) {\r\n    date\r\n    driver_number\r\n    recording_url\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todas las comunicaciones de radio",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query SessionRadio {\r\n  teamRadio(session_key: 9158) {\r\n    date\r\n    driver_number\r\n    recording_url\r\n    meeting_key\r\n    session_key\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Radio de todo el Gran Premio",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query MeetingRadio {\r\n  teamRadio(meeting_key: 1219) {\r\n    date\r\n    driver_number\r\n    recording_url\r\n    session_key\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Radio después de cierta hora",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query RadioAfterTime {\r\n  teamRadio(\r\n    session_key: 9158\r\n    date: \">2023-09-15T10:00:00\"\r\n  ) {\r\n    date\r\n    driver_number\r\n    recording_url\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Con Variables - Análisis de comunicaciones",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query TeamRadioAnalysis($sessionKey: Int!, $driverNumber: Int) {\r\n  teamRadio(\r\n    session_key: $sessionKey\r\n    driver_number: $driverNumber\r\n  ) {\r\n    date\r\n    driver_number\r\n    recording_url\r\n    meeting_key\r\n    session_key\r\n  }\r\n}",
+								"variables": "{\r\n  \"sessionKey\": 9158,\r\n  \"driverNumber\": 11\r\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "13-Weather",
+			"item": [
+				{
+					"name": "Clima actual de una sesión",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  weather(session_key: 9078) {\r\n    date\r\n    air_temperature\r\n    track_temperature\r\n    humidity\r\n    wind_speed\r\n    wind_direction\r\n    rainfall\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Condiciones cálidas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query HotConditions {\r\n  weather(\r\n    meeting_key: 1208\r\n    track_temperature: \">=52\"\r\n    air_temperature: \">=25\"\r\n  ) {\r\n    date\r\n    air_temperature\r\n    track_temperature\r\n    humidity\r\n    pressure\r\n    wind_direction\r\n    wind_speed\r\n    rainfall\r\n    session_key\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Condiciones ventosas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query WindyConditions {\r\n  weather(\r\n    meeting_key: 1208\r\n    wind_direction: \">=130\"\r\n    wind_speed: \">2\"\r\n  ) {\r\n    date\r\n    wind_direction\r\n    wind_speed\r\n    air_temperature\r\n    track_temperature\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Condiciones húmedas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query RainyConditions {\r\n  weather(\r\n    session_key: 9078\r\n    rainfall: 1\r\n  ) {\r\n    date\r\n    rainfall\r\n    humidity\r\n    air_temperature\r\n    track_temperature\r\n    wind_speed\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todos los datos meteorológicos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query CompleteWeather {\r\n  weather(meeting_key: 1208) {\r\n    air_temperature\r\n    date\r\n    humidity\r\n    meeting_key\r\n    pressure\r\n    rainfall\r\n    session_key\r\n    track_temperature\r\n    wind_direction\r\n    wind_speed\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Con Variables - Análisis meteorológico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query WeatherAnalysis($meetingKey: Int!, $minTrackTemp: String, $maxHumidity: String) {\r\n  weather(\r\n    meeting_key: $meetingKey\r\n    track_temperature: $minTrackTemp\r\n    humidity: $maxHumidity\r\n  ) {\r\n    date\r\n    air_temperature\r\n    track_temperature\r\n    humidity\r\n    pressure\r\n    rainfall\r\n    wind_direction\r\n    wind_speed\r\n    session_key\r\n  }\r\n}",
+								"variables": "{\r\n  \"meetingKey\": 1208,\r\n  \"minTrackTemp\": \">=50\",\r\n  \"maxHumidity\": \"<=60\"\r\n}"
 							}
 						},
 						"url": {
