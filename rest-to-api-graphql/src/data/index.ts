@@ -6,6 +6,7 @@ import { LapsData } from './data-laps';
 import { LocationData } from './data-location';
 import { MeetingsData } from './data-meetings';
 import { PitData } from './data-pit';
+import { PositionData } from './data-position';
 
 
 export const dataSources = {
@@ -16,5 +17,6 @@ export const dataSources = {
     LapsData,
     LocationData,
     MeetingsData,
-    PitData
+    PitData,
+    PositionData
 }

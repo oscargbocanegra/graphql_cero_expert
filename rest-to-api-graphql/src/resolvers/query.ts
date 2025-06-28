@@ -165,6 +165,22 @@ const query: IResolvers = {
                 console.error('Error fetching pit data:', error);
                 return [];
             }
+        },
+        
+        async position(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.position.getPosition(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching position data:', error);
+                return [];
+            }
         }
     }
 };

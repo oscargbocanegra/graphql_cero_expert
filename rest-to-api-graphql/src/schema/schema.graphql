@@ -73,6 +73,14 @@ type Query {
         date: String
         pit_duration: String
     ): [Pit!]!
+    
+    position(
+        driver_number: Int
+        session_key: Int
+        meeting_key: Int
+        position: String
+        date: String
+    ): [Position!]!
 }
 
 type Sessions {
@@ -193,6 +201,14 @@ type Pit {
     lap_number: Int
     meeting_key: Int
     pit_duration: Float
+    session_key: Int
+}
+
+type Position {
+    date: String
+    driver_number: Int
+    meeting_key: Int
+    position: Int
     session_key: Int
 }
 
