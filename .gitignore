@@ -115,6 +115,9 @@ dist
 .cache/
 public
 
+# Exception: Allow public directory in rest-to-api-graphql project
+!rest-to-api-graphql/public/
+
 # Storybook build outputs
 .out
 .storybook-out
