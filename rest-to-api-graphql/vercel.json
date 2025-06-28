@@ -1,25 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "serverless/graphql.ts",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/graphql",
-      "dest": "/serverless/graphql"
-    },
-    {
-      "src": "/graphql",
-      "dest": "/serverless/graphql"
-    },
-    {
-      "src": "/",
-      "dest": "/serverless/graphql"
-    }
-  ],
   "installCommand": "npm install --legacy-peer-deps",
   "buildCommand": "npm run build"
 }
