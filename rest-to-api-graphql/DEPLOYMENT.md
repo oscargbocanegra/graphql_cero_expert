@@ -82,23 +82,48 @@ npm install @apollo/server@^4.0.0 @apollo/datasource-rest@^6.0.0
   "version": 2,
   "builds": [
     {
-      "src": "build/server.js",
-      "use": "@vercel/node",
-      "config": {
-        "maxLambdaSize": "10mb"
-      }
+      "src": "api/graphql.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
+      "src": "/graphql",
+      "dest": "/api/graphql"
+    },
+    {
+      "src": "/",
+      "dest": "/api/graphql"
+    },
+    {
       "src": "/(.*)",
-      "dest": "build/server.js"
+      "dest": "/api/graphql"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }
+```
+
+#### Serverless Function (`api/graphql.js`)
+```javascript
+const { ApolloServer } = require('apollo-server-lambda');
+const schema = require('../build/schema').default;
+const { dataSources } = require('../build/data');
+
+const server = new ApolloServer({
+    schema,
+    introspection: true,
+    playground: true,
+    dataSources: () => ({
+        // Your data sources here
+    })
+});
+
+module.exports.handler = server.createHandler({
+    cors: {
+        origin: '*',
+        credentials: true,
+    },
+});
 ```
 
 #### Scripts para Vercel
