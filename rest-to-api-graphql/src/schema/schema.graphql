@@ -94,6 +94,37 @@ type Query {
         date: String
         message: String
     ): [RaceControl!]!
+    
+    stints(
+        driver_number: Int
+        session_key: Int
+        meeting_key: Int
+        stint_number: Int
+        compound: String
+        lap_start: String
+        lap_end: String
+        tyre_age_at_start: String
+    ): [Stint!]!
+    
+    teamRadio(
+        driver_number: Int
+        session_key: Int
+        meeting_key: Int
+        date: String
+    ): [TeamRadio!]!
+    
+    weather(
+        session_key: Int
+        meeting_key: Int
+        date: String
+        air_temperature: String
+        track_temperature: String
+        humidity: String
+        pressure: String
+        rainfall: Int
+        wind_direction: String
+        wind_speed: String
+    ): [Weather!]!
 }
 
 type Sessions {
@@ -236,6 +267,38 @@ type RaceControl {
     scope: String
     sector: Int
     session_key: Int
+}
+
+type Stint {
+    compound: String
+    driver_number: Int
+    lap_end: Int
+    lap_start: Int
+    meeting_key: Int
+    session_key: Int
+    stint_number: Int
+    tyre_age_at_start: Int
+}
+
+type TeamRadio {
+    date: String
+    driver_number: Int
+    meeting_key: Int
+    recording_url: String
+    session_key: Int
+}
+
+type Weather {
+    air_temperature: Float
+    date: String
+    humidity: Int
+    meeting_key: Int
+    pressure: Float
+    rainfall: Int
+    session_key: Int
+    track_temperature: Float
+    wind_direction: Int
+    wind_speed: Float
 }
 
 

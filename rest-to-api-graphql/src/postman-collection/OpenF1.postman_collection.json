@@ -1,0 +1,1022 @@
+{
+	"info": {
+		"_postman_id": "3ab1af64-5fcd-41c7-bb0e-e7347eb267a3",
+		"name": "OpenF1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5936922"
+	},
+	"item": [
+		{
+			"name": "1-CarData",
+			"item": [
+				{
+					"name": "Car-data",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  carData(\r\n    driver_number: 55\r\n    session_key: 9159\r\n    speed: \">=315\"\r\n    limit: 10\r\n    offset: 0\r\n  ) {\r\n    data {\r\n      speed\r\n      throttle\r\n      brake\r\n      date\r\n      driver_number\r\n      session_key\r\n    }\r\n    pagination {\r\n      total\r\n      limit\r\n      offset\r\n      hasNext\r\n      hasPrevious\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2-Drivers",
+			"item": [
+				{
+					"name": "Inf-piloto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  drivers(driver_number: 1) {\r\n    full_name\r\n    team_name\r\n    country_code\r\n    name_acronym\r\n    broadcast_name\r\n    headshot_url\r\n  }\r\n}\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All-pilots-session",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  drivers(session_key: 9158) {\r\n    driver_number\r\n    full_name\r\n    team_name\r\n    team_colour\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pilots-for-team",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  drivers(team_name: \"Red Bull Racing\") {\r\n    driver_number\r\n    full_name\r\n    name_acronym\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3-Intervals",
+			"item": [
+				{
+					"name": "Intervals-especific-sesion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  intervals(session_key: 9165) {\r\n    driver_number\r\n    gap_to_leader\r\n    interval\r\n    date\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VerySmallIntervalsPilotsVeryClose",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  intervals(session_key: 9165, interval: \"<0.005\") {\r\n    driver_number\r\n    interval\r\n    gap_to_leader\r\n    date\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "IntervalsOfASpecificPilot",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  intervals(driver_number: 1, session_key: 9165) {\r\n    gap_to_leader\r\n    interval\r\n    date\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CombineWithPilotInformation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  raceIntervals: intervals(session_key: 9165) {\r\n    driver_number\r\n    gap_to_leader\r\n    interval\r\n  }\r\n  \r\n  raceDrivers: drivers(session_key: 9165) {\r\n    driver_number\r\n    full_name\r\n    team_name\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4-Laps",
+			"item": [
+				{
+					"name": "GetSpecificLap",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n    laps(session_key: 9161, driver_number: 63, lap_number: 8) {\r\n        lap_duration\r\n        duration_sector_1\r\n        duration_sector_2\r\n        duration_sector_3\r\n        i1_speed\r\n        i2_speed\r\n        st_speed\r\n        is_pit_out_lap\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllTheLapsOfADriver",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  laps(driver_number: 63, session_key: 9161) {\r\n    lap_number\r\n    lap_duration\r\n    is_pit_out_lap\r\n    date_start\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5-Location",
+			"item": [
+				{
+					"name": "LocationOfASpecificPilot",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  location(\r\n    session_key: 9161\r\n    driver_number: 81\r\n  ) {\r\n    date\r\n    driver_number\r\n    x\r\n    y\r\n    z\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "QueryWithTimeFilter",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  location(\r\n    session_key: 9161\r\n    driver_number: 81\r\n    date: \">2023-09-16T13:03:35.200\"\r\n  ) {\r\n    date\r\n    driver_number\r\n    x\r\n    y\r\n    z\r\n    meeting_key\r\n    session_key\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "WithVariablesMoreAdvanced",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query LocationWithVariables($sessionKey: Int!, $driverNumber: Int) {\r\n  location(\r\n    session_key: $sessionKey\r\n    driver_number: $driverNumber\r\n  ) {\r\n    date\r\n    driver_number\r\n    x\r\n    y\r\n    z\r\n    meeting_key\r\n    session_key\r\n  }\r\n}",
+								"variables": "{\r\n  \"sessionKey\": 9161,\r\n  \"driverNumber\": 81\r\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "6-Meetings",
+			"item": [
+				{
+					"name": "BasicConsultAll2023GrandPrix",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  meetings(year: 2023) {\r\n    meeting_key\r\n    meeting_name\r\n    country_name\r\n    circuit_short_name\r\n    date_start\r\n    location\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific2023SingaporeGrandPrix",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  meetings(\r\n    year: 2023\r\n    country_name: \"Singapore\"\r\n  ) {\r\n    meeting_key\r\n    meeting_name\r\n    meeting_official_name\r\n    country_name\r\n    circuit_short_name\r\n    date_start\r\n    gmt_offset\r\n    location\r\n    year\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BrowseByCountryAllItalianPs",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query ItalianGP {\r\n  meetings(country_name: \"Italy\") {\r\n    meeting_key\r\n    meeting_name\r\n    year\r\n    circuit_short_name\r\n    date_start\r\n    location\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "InquiryMonacoCircuits",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query MonacoGP {\r\n  meetings(circuit_short_name: \"Monaco\") {\r\n    meeting_key\r\n    meeting_name\r\n    year\r\n    date_start\r\n    meeting_official_name\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompleteConsultationAllAvailableInformation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AllMeetingData {\r\n  meetings(year: 2023) {\r\n    circuit_key\r\n    circuit_short_name\r\n    country_code\r\n    country_key\r\n    country_name\r\n    date_start\r\n    gmt_offset\r\n    location\r\n    meeting_key\r\n    meeting_name\r\n    meeting_official_name\r\n    year\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "WithVariablesMoreFlexible",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query MeetingsByYear($year: Int!, $country: String) {\r\n  meetings(\r\n    year: $year\r\n    country_name: $country\r\n  ) {\r\n    meeting_key\r\n    meeting_name\r\n    country_name\r\n    circuit_short_name\r\n    date_start\r\n    location\r\n  }\r\n}",
+								"variables": "{\r\n  \"year\": 2023,\r\n  \"country\": \"Spain\"\r\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "7-Pits",
+			"item": [
+				{
+					"name": "AllThePitStopsSession",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  pit(session_key: 9158) {\r\n    date\r\n    driver_number\r\n    lap_number\r\n    pit_duration\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FilterQueryQuickStopsLessThan31Seconds",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query FastPitStops {\r\n  pit(\r\n    session_key: 9158\r\n    pit_duration: \"<31\"\r\n  ) {\r\n    date\r\n    driver_number\r\n    lap_number\r\n    pit_duration\r\n    meeting_key\r\n    session_key\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pilot's stops",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query DriverPitStops {\r\n  pit(\r\n    session_key: 9158\r\n    driver_number: 1\r\n  ) {\r\n    date\r\n    driver_number\r\n    lap_number\r\n    pit_duration\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Multiple Filters - Long Pilot Stops",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query SlowPitStops {\r\n  pit(\r\n    session_key: 9158\r\n    driver_number: 44\r\n    pit_duration: \">30\"\r\n  ) {\r\n    date\r\n    driver_number\r\n    lap_number\r\n    pit_duration\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "With Variables - Strategy Analysis",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query PitAnalysis($sessionKey: Int!, $maxDuration: String) {\r\n  pit(\r\n    session_key: $sessionKey\r\n    pit_duration: $maxDuration\r\n  ) {\r\n    date\r\n    driver_number\r\n    lap_number\r\n    pit_duration\r\n    meeting_key\r\n    session_key\r\n  }\r\n}",
+								"variables": "{\r\n  \"sessionKey\": 9158,\r\n  \"maxDuration\": \"<25\"\r\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "8-Position",
+			"item": [
+				{
+					"name": "Posiciones de un piloto específico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  position(\r\n    meeting_key: 1217\r\n    driver_number: 40\r\n  ) {\r\n    date\r\n    driver_number\r\n    position\r\n    session_key\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Solo posiciones del podio (top 3)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query PodiumPositions {\r\n  position(\r\n    meeting_key: 1217\r\n    driver_number: 40\r\n    position: \"<=3\"\r\n  ) {\r\n    date\r\n    driver_number\r\n    position\r\n    meeting_key\r\n    session_key\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todas las posiciones de una sesión",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query SessionPositions {\r\n  position(session_key: 9144) {\r\n    date\r\n    driver_number\r\n    position\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Solo posición 1 (líderes)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query RaceLeaders {\r\n  position(\r\n    session_key: 9144\r\n    position: \"=1\"\r\n  ) {\r\n    date\r\n    driver_number\r\n    position\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Con Variables - Análisis de posiciones",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query PositionAnalysis($meetingKey: Int!, $maxPosition: String) {\r\n  position(\r\n    meeting_key: $meetingKey\r\n    position: $maxPosition\r\n  ) {\r\n    date\r\n    driver_number\r\n    position\r\n    meeting_key\r\n    session_key\r\n  }\r\n}",
+								"variables": "{\r\n  \"meetingKey\": 1217,\r\n  \"maxPosition\": \"<=5\"\r\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "9-Race-Control",
+			"item": [
+				{
+					"name": "Eventos de control de carrera en una session",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  raceControl(session_key: 9102) {\r\n    date\r\n    category\r\n    flag\r\n    message\r\n    driver_number\r\n    lap_number\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Banderas blancas y negras",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query BlackAndWhiteFlags {\r\n  raceControl(\r\n    flag: \"BLACK AND WHITE\"\r\n    driver_number: 1\r\n  ) {\r\n    date\r\n    driver_number\r\n    flag\r\n    message\r\n    lap_number\r\n    meeting_key\r\n    session_key\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Solo eventos de banderas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query FlagEvents {\r\n  raceControl(\r\n    session_key: 9102\r\n    category: \"Flag\"\r\n  ) {\r\n    date\r\n    category\r\n    flag\r\n    message\r\n    driver_number\r\n    scope\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eventos del safety car",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query SafetyCarEvents {\r\n  raceControl(\r\n    session_key: 9102\r\n    category: \"SafetyCar\"\r\n  ) {\r\n    date\r\n    category\r\n    message\r\n    scope\r\n    lap_number\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rango de Fechas - Eventos en un período",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query EventsInRange {\r\n  raceControl(\r\n    date: \">=2023-01-01\"\r\n    driver_number: 1\r\n  ) {\r\n    date\r\n    category\r\n    flag\r\n    message\r\n    driver_number\r\n    meeting_key\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "por Alcance - Eventos que afectan a todo el circuito",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query TrackWideEvents {\r\n  raceControl(\r\n    session_key: 9102\r\n    scope: \"Track\"\r\n  ) {\r\n    date\r\n    category\r\n    message\r\n    scope\r\n    lap_number\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Con Variables - Análisis de incidentes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query RaceControlAnalysis($sessionKey: Int!, $flagType: String) {\r\n  raceControl(\r\n    session_key: $sessionKey\r\n    flag: $flagType\r\n  ) {\r\n    date\r\n    category\r\n    flag\r\n    message\r\n    driver_number\r\n    lap_number\r\n    scope\r\n    sector\r\n    meeting_key\r\n    session_key\r\n  }\r\n}",
+								"variables": "{\r\n  \"sessionKey\": 9102,\r\n  \"flagType\": \"YELLOW\"\r\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "10-Sessions",
+			"item": [
+				{
+					"name": "SeasonList",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n  seasonsList {\r\n    meeting_key\r\n    session_key\r\n    country_name\r\n    circuit_short_name\r\n    country_key\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -32,7 +32,10 @@ async function init() {
             meetings: new dataSources.MeetingsData(),
             pit: new dataSources.PitData(),
             position: new dataSources.PositionData(),
-            racecontrol: new dataSources.RaceControlData()
+            racecontrol: new dataSources.RaceControlData(),
+            stints: new dataSources.StintsData(),
+            teamradio: new dataSources.TeamRadioData(),
+            weather: new dataSources.WeatherData()
         })
     });
 

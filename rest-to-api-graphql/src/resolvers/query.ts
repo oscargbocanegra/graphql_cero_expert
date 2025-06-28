@@ -197,6 +197,54 @@ const query: IResolvers = {
                 console.error('Error fetching race control data:', error);
                 return [];
             }
+        },
+        
+        async stints(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.stints.getStints(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching stints data:', error);
+                return [];
+            }
+        },
+        
+        async teamRadio(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.teamradio.getTeamRadio(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching team radio data:', error);
+                return [];
+            }
+        },
+        
+        async weather(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.weather.getWeather(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+                return [];
+            }
         }
     }
 };
