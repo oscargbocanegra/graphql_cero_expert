@@ -2,30 +2,27 @@
 
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-4.5+-blue.svg)](https://www.typescriptlang.org/)
-[![GraphQL](https://img.shields.io/badge/GraphQL-16+-e10098.s## 🚀 Deployment
+[![GraphQL](https://img.shields.io/badge/GraphQL-16+-e10098.s## 🚀 Local Development
 
-### ⚡ One-Click Deploy
+### 🖥️ Running Locally
 
-#### **Automated Vercel Deployment** (Recommended)
+The server is configured to run locally on port 5000:
+
 ```bash
-# Easy deployment with automated script
-./deploy-vercel.sh
+# Build and start the server
+npm run build
+npm start
+
+# Or for development with auto-reload
+npm run dev
 ```
 
-This script handles:
-- ✅ Dependency installation with legacy peer deps
-- ✅ TypeScript compilation
-- ✅ Automatic Vercel deployment
-- ✅ Error checking and validation
+Your GraphQL playground will be available at:
+```
+http://localhost:5000/graphql
+```
 
 ### Manual Deploy Options
-
-#### **Vercel** 
-```bash
-npm install --legacy-peer-deps
-npm run build
-npx vercel --prod
-```
 
 #### **Heroku**
 ```bash
@@ -33,10 +30,7 @@ git push heroku main
 ```
 
 #### **Railway**
-Connect your GitHub repository and Railway will handle the rest.
-
-### 📋 **Detailed Deployment Guide**
-For complete deployment instructions, troubleshooting, and platform-specific configurations, see **[DEPLOYMENT.md](./DEPLOYMENT.md)**.org/)
+Connect your GitHub repository and Railway will handle the rest.org/)
 [![Apollo Server](https://img.shields.io/badge/Apollo%20Server-3+-311C87.svg)](https://www.apollographql.com/)
 [![OpenF1 API](https://img.shields.io/badge/OpenF1%20API-Live%20Data-red.svg)](https://openf1.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -210,7 +204,6 @@ src/
 ├── 📁 postman-collection/     # API Testing
 │   └── OpenF1.postman_collection.json
 ├── 📄 DEPLOYMENT.md           # Complete deployment guide
-├── 📄 vercel.json            # Vercel configuration
 ├── 📄 Procfile               # Heroku configuration
 ├── 📄 .env.example           # Environment variables template
 └── server.ts                  # Apollo Server setup
@@ -316,12 +309,6 @@ We welcome contributions! This is an educational project aimed at helping develo
 
 ### Quick Deploy Options
 
-#### **Vercel** (Recommended)
-```bash
-npm install graphql@^16.8.1  # Fix dependency conflict
-npx vercel --prod
-```
-
 #### **Heroku**
 ```bash
 git push heroku main
@@ -335,7 +322,7 @@ For complete deployment instructions, troubleshooting, and platform-specific con
 
 #### What's included:
 - ✅ Dependency conflict resolution
-- ✅ Platform-specific configurations (Vercel, Heroku, Railway, Netlify)
+- ✅ Platform-specific configurations (Heroku, Railway, Netlify)
 - ✅ Environment variable setup
 - ✅ Production optimization
 - ✅ Monitoring and error handling

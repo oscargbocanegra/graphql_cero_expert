@@ -8,7 +8,7 @@
 │   ├── 🧪 postman-collection/      # Comprehensive testing
 │   ├── 🚀 DEPLOYMENT.md            # Complete deployment guide
 │   ├── ⚡ QUICK-DEPLOY.md          # 2-minute deployment solution
-│   ├── 🔧 vercel.json              # Vercel configuration
+│   ├── 🔧 package.json           # Dependencies and scripts
 │   ├── 📄 Procfile                 # Heroku configuration
 │   └── 📖 README.md                # Professional documentatione-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Apollo Server](https://img.shields.io/badge/Apollo%20Server-4.12.2-311C87?style=for-the-badge&logo=apollo-graphql&logoColor=white)](https://www.apollographql.com/docs/apollo-server/)
