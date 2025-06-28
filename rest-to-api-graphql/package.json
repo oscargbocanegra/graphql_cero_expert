@@ -5,7 +5,7 @@
   "main": "build/main.js",
   "scripts": {
     "start": "node build/main.js",
-    "build": "tsc -p tsconfig.build.json && ncp src/graphql/schema build/graphql/schema",
+    "build": "rm -rf build || true && tsc -p tsconfig.build.json && ncp src/graphql/schema build/graphql/schema",
     "start:dev": "npm run build:dev",
     "build:dev": "nodemon \"src/main.ts\" --exec \"ts-node\" src/main.ts -e ts,graphql,json",
     "dev:server": "nodemon \"src/api/graphql/server.ts\" --exec \"ts-node\" src/api/graphql/server.ts -e ts,graphql,json",
@@ -15,9 +15,7 @@
     "lint": "tslint src/**/*.ts",
     "test": "echo \"No tests specified\" && exit 0",
     "test:unit": "jest --testPathPattern=tests/unit",
-    "test:integration": "jest --testPathPattern=tests/integration",
-    "clean": "rimraf build",
-    "prebuild": "npm run clean"
+    "test:integration": "jest --testPathPattern=tests/integration"
   },
   "repository": {
     "type": "git",
