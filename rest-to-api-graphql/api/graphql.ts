@@ -54,12 +54,39 @@ const getServer = () => {
     }
 };
 
-// Handler optimizado con cache de servidor
+// Handler optimizado con respuesta mejorada para navegadores
 const handler = async (event: any, context: any, callback: any) => {
     // Configurar timeout más corto para evitar funciones lentas
     context.callbackWaitsForEmptyEventLoop = false;
     
     try {
+        // Si es una petición GET desde navegador, mostrar información básica
+        if (event.httpMethod === 'GET' && !event.queryStringParameters?.query) {
+            return {
+                statusCode: 200,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': 'Content-Type',
+                },
+                body: JSON.stringify({
+                    message: "🏎️ Formula 1 GraphQL API",
+                    status: "Running",
+                    endpoints: {
+                        graphql: "/api/graphql",
+                        playground: "/api/graphql?playground",
+                        introspection: "/api/graphql?introspection"
+                    },
+                    example_query: {
+                        query: "{ drivers { first_name last_name full_name } }",
+                        url: "POST /api/graphql",
+                        headers: { "Content-Type": "application/json" }
+                    },
+                    documentation: "Send POST requests with GraphQL queries to this endpoint"
+                }, null, 2)
+            };
+        }
+
         const server = getServer();
         const graphqlHandler = server.createHandler();
         
