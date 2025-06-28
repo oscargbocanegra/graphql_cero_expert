@@ -1,7 +1,8 @@
 import { GraphQLSchema } from 'graphql';
 import 'graphql-import-node';
 import typeDefs from './schema.graphql';
-import resolvers from './../resolvers/resolversMap';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const resolvers = require('./../resolvers/resolversMap');
 import { makeExecutableSchema } from 'graphql-tools';
 
 const schema: GraphQLSchema = makeExecutableSchema({

@@ -37,7 +37,7 @@ fi
 
 # Desplegar a Vercel
 echo "🚀 Desplegando a Vercel..."
-vercel --prod
+vercel --prod --force
 
 echo "✅ ¡Despliegue completado!"
 echo ""
@@ -46,11 +46,11 @@ echo "   1. Verifica que el endpoint GraphQL funcione correctamente"
 echo "   2. Prueba las queries en GraphQL Playground"
 echo "   3. Revisa los logs en Vercel Dashboard si hay errores"
 echo ""
-echo "🔗 Endpoints útiles:"
-echo "   • GraphQL API: https://tu-proyecto.vercel.app/graphql"
-echo "   • GraphQL Playground: https://tu-proyecto.vercel.app/"
+echo "🔗 Endpoints a probar:"
+echo "   • GraphQL API: https://tu-proyecto.vercel.app/api/graphql"
+echo "   • Ruta principal: https://tu-proyecto.vercel.app/"
+echo "   • Endpoint directo: https://tu-proyecto.vercel.app/graphql"
 echo ""
-echo "📚 Documentación disponible:"
-echo "   • DEPLOYMENT.md - Guía completa de despliegue"
-echo "   • TROUBLESHOOTING.md - Solución de problemas"
-echo "   • QUICK-DEPLOY.md - Guía rápida"
+echo "📚 Si tienes problemas:"
+echo "   • Revisa VERCEL-404-FIX.md para solucionar errores 404"
+echo "   • Consulta TROUBLESHOOTING.md para otros problemas"
