@@ -2,17 +2,22 @@
   "name": "rest-to-api-graphql",
   "version": "1.0.0",
   "description": "API GraphQl F1 from API Rest to Rest Data Source",
-  "main": "build/server.js",
+  "main": "build/main.js",
   "scripts": {
-    "start": "node build/server.js",
-    "build": "tsc -p tsconfig.build.json && ncp src/schema build/schema",
+    "start": "node build/main.js",
+    "build": "tsc -p tsconfig.build.json && ncp src/graphql/schema build/graphql/schema",
     "start:dev": "npm run build:dev",
-    "build:dev": "nodemon \"src/server.ts\" --exec \"ts-node\" src/server.ts -e ts,graphql,json",
+    "build:dev": "nodemon \"src/main.ts\" --exec \"ts-node\" src/main.ts -e ts,graphql,json",
+    "dev:server": "nodemon \"src/api/graphql/server.ts\" --exec \"ts-node\" src/api/graphql/server.ts -e ts,graphql,json",
     "vercel-build": "npm run build",
     "heroku-postbuild": "npm run build",
     "dev": "npm run build:dev",
     "lint": "tslint src/**/*.ts",
-    "test": "echo \"No tests specified\" && exit 0"
+    "test": "echo \"No tests specified\" && exit 0",
+    "test:unit": "jest --testPathPattern=tests/unit",
+    "test:integration": "jest --testPathPattern=tests/integration",
+    "clean": "rimraf build",
+    "prebuild": "npm run clean"
   },
   "repository": {
     "type": "git",

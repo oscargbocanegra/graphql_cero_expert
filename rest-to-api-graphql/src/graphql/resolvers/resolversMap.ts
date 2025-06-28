@@ -3,10 +3,11 @@ import mutation from './mutation';
 import query from './query';
 import type from './type';
 
-const resolversMap : IResolvers = {
+const resolversMap: IResolvers = {
     ...query,
-    ...mutation,
-    ...type
+    ...type,
+    // Solo incluir mutations si tiene contenido real
+    ...(Object.keys(mutation).length > 0 && mutation)
 };
 
 export default resolversMap;

@@ -15,7 +15,7 @@
     // "sourceMap": true,                     /* Generates corresponding '.map' file. */
     // "outFile": "./",                       /* Concatenate and emit output to single file. */
     "outDir": "build",                        /* Redirect output structure to the directory. */
-    "rootDirs": ["src", "api"],               /* List of root folders whose combined content represents the structure of the project at runtime. */
+    "rootDirs": ["src", "serverless"],               /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "composite": true,                     /* Enable project compilation */
     // "incremental": true,                   /* Enable incremental compilation */
     // "tsBuildInfoFile": "./",               /* Specify file to store incremental compilation information */

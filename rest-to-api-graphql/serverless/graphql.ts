@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server-lambda';
-import schema from '../src/schema';
-import { dataSources } from '../src/data';
+import schema from '../src/graphql/schema';
+import { dataSources } from '../src/graphql/dataSources';
 
 const server = new ApolloServer({
     schema,
@@ -23,3 +23,6 @@ const server = new ApolloServer({
 });
 
 export const handler = server.createHandler();
+
+// Exportación por defecto para compatibilidad con Vercel
+export default handler;
