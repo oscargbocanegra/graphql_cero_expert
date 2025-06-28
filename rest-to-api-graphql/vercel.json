@@ -10,5 +10,6 @@
       "dest": "/api/graphql"
     }
   ],
-  "installCommand": "npm install --legacy-peer-deps"
+  "installCommand": "npm install --legacy-peer-deps",
+  "buildCommand": "echo 'No build needed for serverless functions'"
 }

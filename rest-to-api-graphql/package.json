@@ -9,7 +9,6 @@
     "start:dev": "npm run build:dev",
     "build:dev": "nodemon \"src/main.ts\" --exec \"ts-node\" src/main.ts -e ts,graphql,json",
     "dev:server": "nodemon \"src/api/graphql/server.ts\" --exec \"ts-node\" src/api/graphql/server.ts -e ts,graphql,json",
-    "vercel-build": "npm run build",
     "heroku-postbuild": "npm run build",
     "dev": "npm run build:dev",
     "lint": "tslint src/**/*.ts",
