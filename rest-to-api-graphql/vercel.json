@@ -1,5 +1,23 @@
 {
   "version": 2,
-  "installCommand": "npm install --legacy-peer-deps",
-  "buildCommand": "npm run build"
+  "functions": {
+    "api/graphql.ts": {
+      "runtime": "@vercel/node"
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/graphql",
+      "dest": "/api/graphql"
+    },
+    {
+      "src": "/graphql",
+      "dest": "/api/graphql"
+    },
+    {
+      "src": "/",
+      "dest": "/api/graphql"
+    }
+  ],
+  "installCommand": "npm install --legacy-peer-deps"
 }
