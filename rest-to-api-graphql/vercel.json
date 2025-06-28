@@ -4,12 +4,7 @@
     {
       "src": "/graphql", 
       "dest": "/api/graphql"
-    },
-    {
-      "src": "/",
-      "dest": "/api/graphql"
     }
   ],
-  "installCommand": "npm install --legacy-peer-deps",
-  "buildCommand": "echo 'No build needed for serverless functions'"
+  "installCommand": "npm install --legacy-peer-deps"
 }
