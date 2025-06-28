@@ -5,7 +5,6 @@ import { dataSources } from '../src/data';
 const server = new ApolloServer({
     schema,
     introspection: true,
-    playground: true,
     dataSources: () => ({
         seasons: new dataSources.SeasonsData(),
         cardata: new dataSources.CarData(),
@@ -24,8 +23,10 @@ const server = new ApolloServer({
 });
 
 export const handler = server.createHandler({
-    cors: {
-        origin: '*',
-        credentials: true,
+    expressGetMiddlewareOptions: {
+        cors: {
+            origin: '*',
+            credentials: true,
+        },
     },
 });
