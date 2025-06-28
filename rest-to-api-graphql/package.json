@@ -9,13 +9,7 @@
     "build:clean": "rm -rf build && npm run build",
     "start:dev": "npm run build:dev",
     "build:dev": "nodemon \"src/main.ts\" --exec \"ts-node\" src/main.ts -e ts,graphql,json",
-    "dev:server": "nodemon \"src/api/graphql/server.ts\" --exec \"ts-node\" src/api/graphql/server.ts -e ts,graphql,json",
-    "heroku-postbuild": "npm run build:clean",
-    "dev": "npm run build:dev",
-    "lint": "tslint src/**/*.ts",
-    "test": "echo \"No tests specified\" && exit 0",
-    "test:unit": "jest --testPathPattern=tests/unit",
-    "test:integration": "jest --testPathPattern=tests/integration"
+    "dev": "npm run build:dev"
   },
   "repository": {
     "type": "git",
@@ -55,7 +49,6 @@
     "@types/node": "^16.0.0",
     "nodemon": "^2.0.1",
     "ts-node": "^10.9.0",
-    "typescript": "^4.9.5",
-    "typescript-tslint-plugin": "0.5.5"
+    "typescript": "^4.9.5"
   }
 }
