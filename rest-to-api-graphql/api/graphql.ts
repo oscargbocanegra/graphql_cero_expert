@@ -48,8 +48,8 @@ const createServer = () => {
     }
 };
 
-// Crear el handler
-export const handler = async (event: any, context: any, callback: any) => {
+// Crear el handler y exportarlo como default
+const handler = async (event: any, context: any, callback: any) => {
     try {
         const server = createServer();
         const graphqlHandler = server.createHandler();
@@ -67,3 +67,6 @@ export const handler = async (event: any, context: any, callback: any) => {
         };
     }
 };
+
+// EXPORTACIÓN POR DEFECTO REQUERIDA POR VERCEL
+export default handler;
