@@ -19,10 +19,13 @@ const server = new ApolloServer({
         stints: new dataSources.StintsData(),
         teamradio: new dataSources.TeamRadioData(),
         weather: new dataSources.WeatherData()
-    })
+    }),
+    context: ({ event, context }) => ({
+        headers: event.headers,
+        functionName: context.functionName,
+        event,
+        context,
+    }),
 });
 
 export const handler = server.createHandler();
-
-// Exportación por defecto para compatibilidad con Vercel
-export default handler;
