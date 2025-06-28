@@ -1,6 +1,16 @@
 # 🚀 GraphQL Zero to Expert
 
-[![Node.js](https://img.shields.io/badge/Node.js-18.19.1-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-18.19.1-339933?style├── 🏎️ rest-to-api-graphql/         # Advanced: Professional API
+│   ├── 📋 package.json             # Production dependencies
+│   ├── 🔧 src/                     # Professional structure
+│   ├── 📊 data/                    # F1 data sources (13+ endpoints)
+│   ├── 📊 schema/                  # Complete GraphQL schema
+│   ├── 🧪 postman-collection/      # Comprehensive testing
+│   ├── 🚀 DEPLOYMENT.md            # Complete deployment guide
+│   ├── ⚡ QUICK-DEPLOY.md          # 2-minute deployment solution
+│   ├── 🔧 vercel.json              # Vercel configuration
+│   ├── 📄 Procfile                 # Heroku configuration
+│   └── 📖 README.md                # Professional documentatione-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Apollo Server](https://img.shields.io/badge/Apollo%20Server-4.12.2-311C87?style=for-the-badge&logo=apollo-graphql&logoColor=white)](https://www.apollographql.com/docs/apollo-server/)
 [![GraphQL](https://img.shields.io/badge/GraphQL-16.11.0-E10098?style=for-the-badge&logo=graphql&logoColor=white)](https://graphql.org/)
 [![Express](https://img.shields.io/badge/Express-4.21.2-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)

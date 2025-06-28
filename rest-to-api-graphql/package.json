@@ -7,7 +7,12 @@
     "start": "node build/server.js",
     "build": "tsc -p . && ncp src/schema build/schema",
     "start:dev": "npm run build:dev",
-    "build:dev": "nodemon \"src/server.ts\" --exec \"ts-node\" src/server.ts -e ts,graphql,json"
+    "build:dev": "nodemon \"src/server.ts\" --exec \"ts-node\" src/server.ts -e ts,graphql,json",
+    "vercel-build": "npm run build",
+    "heroku-postbuild": "npm run build",
+    "dev": "npm run build:dev",
+    "lint": "tslint src/**/*.ts",
+    "test": "echo \"No tests specified\" && exit 0"
   },
   "repository": {
     "type": "git",
@@ -28,7 +33,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
-    "graphql": "^14.3.1",
+    "graphql": "^16.8.1",
     "graphql-import": "^0.7.1",
     "graphql-import-node": "0.0.4",
     "graphql-playground-middleware-express": "^1.7.12",

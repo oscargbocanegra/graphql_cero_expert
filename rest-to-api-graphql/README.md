@@ -175,6 +175,10 @@ src/
 │   └── index.ts              # Schema builder
 ├── 📁 postman-collection/     # API Testing
 │   └── OpenF1.postman_collection.json
+├── 📄 DEPLOYMENT.md           # Complete deployment guide
+├── 📄 vercel.json            # Vercel configuration
+├── 📄 Procfile               # Heroku configuration
+├── 📄 .env.example           # Environment variables template
 └── server.ts                  # Apollo Server setup
 ```
 
@@ -274,7 +278,35 @@ We welcome contributions! This is an educational project aimed at helping develo
 - Add more complex query examples
 - Implement subscriptions for real-time updates
 
-## 📚 Resources
+## � Deployment
+
+### Quick Deploy Options
+
+#### **Vercel** (Recommended)
+```bash
+npm install graphql@^16.8.1  # Fix dependency conflict
+npx vercel --prod
+```
+
+#### **Heroku**
+```bash
+git push heroku main
+```
+
+#### **Railway**
+Connect your GitHub repository and Railway will handle the rest.
+
+### 📋 **Detailed Deployment Guide**
+For complete deployment instructions, troubleshooting, and platform-specific configurations, see **[DEPLOYMENT.md](./DEPLOYMENT.md)**
+
+#### What's included:
+- ✅ Dependency conflict resolution
+- ✅ Platform-specific configurations (Vercel, Heroku, Railway, Netlify)
+- ✅ Environment variable setup
+- ✅ Production optimization
+- ✅ Monitoring and error handling
+
+## �📚 Resources
 
 ### 📖 **GraphQL Learning**
 - [GraphQL Official Documentation](https://graphql.org/learn/)
