@@ -83,7 +83,10 @@ npm install @apollo/server@^4.0.0 @apollo/datasource-rest@^6.0.0
   "builds": [
     {
       "src": "build/server.js",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "maxLambdaSize": "10mb"
+      }
     }
   ],
   "routes": [
