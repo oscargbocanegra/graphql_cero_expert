@@ -181,6 +181,22 @@ const query: IResolvers = {
                 console.error('Error fetching position data:', error);
                 return [];
             }
+        },
+        
+        async raceControl(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.racecontrol.getRaceControl(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching race control data:', error);
+                return [];
+            }
         }
     }
 };

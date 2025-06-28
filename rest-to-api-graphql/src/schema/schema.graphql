@@ -81,6 +81,19 @@ type Query {
         position: String
         date: String
     ): [Position!]!
+    
+    raceControl(
+        driver_number: Int
+        session_key: Int
+        meeting_key: Int
+        lap_number: Int
+        category: String
+        flag: String
+        scope: String
+        sector: Int
+        date: String
+        message: String
+    ): [RaceControl!]!
 }
 
 type Sessions {
@@ -209,6 +222,19 @@ type Position {
     driver_number: Int
     meeting_key: Int
     position: Int
+    session_key: Int
+}
+
+type RaceControl {
+    category: String
+    date: String
+    driver_number: Int
+    flag: String
+    lap_number: Int
+    meeting_key: Int
+    message: String
+    scope: String
+    sector: Int
     session_key: Int
 }
 

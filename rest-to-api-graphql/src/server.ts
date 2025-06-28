@@ -31,7 +31,8 @@ async function init() {
             location: new dataSources.LocationData(),
             meetings: new dataSources.MeetingsData(),
             pit: new dataSources.PitData(),
-            position: new dataSources.PositionData()
+            position: new dataSources.PositionData(),
+            racecontrol: new dataSources.RaceControlData()
         })
     });
 
