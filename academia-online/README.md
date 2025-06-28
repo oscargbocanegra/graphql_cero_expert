@@ -1,56 +1,317 @@
-# 🎓 Academia Online - GraphQL API Server
+# 🎓 Academia Online GraphQL API
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![GraphQL](https://img.shields.io/badge/GraphQL-E10098?style=for-the-badge&logo=graphql&logoColor=white)](https://graphql.org/)
-[![Apollo Server](https://img.shields.io/badge/Apollo%20Server-311C87?style=for-the-badge&logo=apollo-graphql&logoColor=white)](https://www.apollographql.com/docs/apollo-server/)
-[![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://choosealicense.com/licenses/mit/)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-4.5+-blue.svg)](https://www.typescriptlang.org/)
+[![GraphQL](https://img.shields.io/badge/GraphQL-16+-e10098.svg)](https://graphql.org/)
+[![Apollo Server](https://img.shields.io/badge/Apollo%20Server-4+-311C87.svg)](https://www.apollographql.com/)
+[![Express](https://img.shields.io/badge/Express-4+-000000.svg)](https://expressjs.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 📋 Table of Contents
+> � **Intermediate GraphQL Learning** - A comprehensive online academy API with complex relationships, business logic, and real-world application patterns.
 
-- [Overview](#-overview)
-- [Features](#-features)
-- [Architecture](#-architecture)
-- [Tech Stack](#-tech-stack)
-- [Getting Started](#-getting-started)
-- [API Documentation](#-api-documentation)
-- [Project Structure](#-project-structure)
-- [Scripts](#-scripts)
-- [Learning Objectives](#-learning-objectives)
-- [Contributing](#-contributing)
-- [License](#-license)
+## 🎯 What You'll Learn
 
-## 🌟 Overview
+This project is designed to teach intermediate GraphQL concepts through a realistic online academy scenario:
 
-**Academia Online** is a comprehensive GraphQL API server designed for educational platforms. This project serves as a practical implementation of modern web development technologies, specifically focusing on GraphQL API design patterns, TypeScript development, and scalable server architecture.
+- ✅ **Complex Data Relationships** - Students, courses, and enrollments
+- ✅ **Advanced Resolver Patterns** - Nested resolvers and data fetching
+- ✅ **Business Logic Implementation** - Enrollment validation and management
+- ✅ **GraphQL Best Practices** - Schema design and organization
+- ✅ **Error Handling** - Proper GraphQL error management
+- ✅ **Data Modeling** - Real-world entity relationships
+- ✅ **TypeScript Integration** - Advanced type safety patterns
 
-Built as a **training project**, it demonstrates best practices in GraphQL development, from schema design to resolver implementation, making it an excellent resource for developers learning GraphQL fundamentals and advanced concepts.
+## 🏁 Quick Start
 
-## ✨ Features
+### Prerequisites
 
-- 🚀 **High-Performance GraphQL API** - Built with Apollo Server for optimal query execution
-- 🎯 **Schema-First Design** - Well-structured GraphQL schema with clear documentation 
-- 🎮 **Interactive Playground** - Built-in GraphQL Playground for API exploration
-- 📱 **Responsive Architecture** - Designed for scalability and maintainability
-- 🧪 **Mock Data Layer** - JSON-based data storage with centralized data store
-- 🌐 **Dynamic URL Generation** - Automatic Udemy URL path generation for courses
-- ✅ **Data Validation** - Built-in validation for duplicate course prevention
-- 🔄 **Real-time Updates** - Live data manipulation with immediate GraphQL response
-- 📚 **Educational Focus** - Designed specifically for learning GraphQL best practices
+```bash
+node >= 18.0.0
+npm >= 8.0.0
+```
 
-## 🏗️ Architecture
+### Installation
 
-The application follows a **modular, layered architecture** that promotes separation of concerns and maintainability:
+```bash
+# Clone the repository
+git clone https://github.com/your-username/graphql_cero_expert.git
+cd graphql_cero_expert/academia-online
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run build:dev
+```
+
+### 🚀 Server Running
+
+Your GraphQL playground will be available at:
+```
+http://localhost:5000/graphql
+```
+## 📊 API Features
+
+### 🎓 **Complete Educational Platform**
+
+| Endpoint | Description | Type |
+|----------|-------------|------|
+| `students` | Get all students | Query |
+| `student(id)` | Get student by ID | Query |
+| `courses` | Get all courses | Query |
+| `course(id)` | Get course by ID | Query |
+| `addStudent` | Create new student | Mutation |
+| `addCourse` | Create new course | Mutation |
+| `editStudent` | Update student info | Mutation |
+| `editCourse` | Update course info | Mutation |
+| `deleteStudent` | Remove student | Mutation |
+| `deleteCourse` | Remove course | Mutation |
+
+## 🎮 Example Queries
+
+### 🎓 Get All Students with Their Courses
+```graphql
+query GetStudentsWithCourses {
+  students {
+    id
+    name
+    email
+    courses {
+      id
+      title
+      description
+      instructor
+      topic
+      url
+      level
+    }
+  }
+}
+```
+
+### 📚 Get All Courses with Enrolled Students
+```graphql
+query GetCoursesWithStudents {
+  courses {
+    id
+    title
+    description
+    instructor
+    topic
+    level
+    url
+    students {
+      id
+      name
+      email
+    }
+  }
+}
+```
+
+### 👤 Get Single Student Details
+```graphql
+query GetStudent($id: ID!) {
+  student(id: $id) {
+    id
+    name
+    email
+    courses {
+      id
+      title
+      instructor
+      topic
+      level
+    }
+  }
+}
+```
+
+### ➕ Create New Student
+```graphql
+mutation AddStudent($student: StudentInput!) {
+  addStudent(student: $student) {
+    id
+    name
+    email
+  }
+}
+```
+
+### 📖 Create New Course
+```graphql
+mutation AddCourse($course: CourseInput!) {
+  addCourse(course: $course) {
+    id
+    title
+    description
+    instructor
+    topic
+    level
+    url
+  }
+}
+```
+
+### ✏️ Update Student Information
+```graphql
+mutation EditStudent($id: ID!, $student: StudentInput!) {
+  editStudent(id: $id, student: $student) {
+    id
+    name
+    email
+    courses {
+      id
+      title
+    }
+  }
+}
+```
+
+## 🏗️ Project Structure
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    GraphQL Layer                            │
-│  ┌─────────────────┐  ┌─────────────────┐  ┌──────────────┐ │
-│  │    Schema       │  │   Resolvers     │  │  Playground  │ │
-│  │   (SDL-First)   │  │   (Business)    │  │  (DevTools)  │ │
-│  └─────────────────┘  └─────────────────┘  └──────────────┘ │
-└─────────────────────────────────────────────────────────────┘
+academia-online/
+├── 📁 src/                       # Source code
+│   ├── 📁 data/                 # Data layer
+│   │   ├── courses.json         # Course data
+│   │   ├── students.json        # Student data
+│   │   └── data.store.ts        # Data store management
+│   ├── 📁 resolvers/            # GraphQL Resolvers
+│   │   ├── mutation.ts          # Mutation resolvers
+│   │   ├── query.ts             # Query resolvers
+│   │   ├── type.ts              # Type resolvers
+│   │   └── resolversMap.ts      # Resolver mapping
+│   ├── 📁 schema/               # GraphQL Schema
+│   │   ├── index.ts             # Schema builder
+│   │   └── schema.graphql       # Type definitions
+│   ├── index.ts                 # Application entry point
+│   └── server.ts                # Apollo Server setup
+├── 📁 postman-collection/       # API Testing
+│   └── Api-Graphql-Academia-online.postman_collection.json
+├── 📋 package.json              # Dependencies & scripts
+├── 📄 tsconfig.json             # TypeScript configuration
+└── 📖 README.md                 # This documentation
+```
+
+## 🎓 Learning Path
+
+### 1️⃣ **Complex Data Relationships**
+- Explore the relationship between Students and Courses
+- Learn about GraphQL type relationships
+- Understand bidirectional data fetching
+
+### 2️⃣ **Advanced Resolver Patterns**
+- Study `src/resolvers/` for complex resolver implementations
+- Learn nested resolver patterns
+- Understand data transformation techniques
+
+### 3️⃣ **Business Logic Implementation**
+- Examine validation logic in mutations
+- Learn about data consistency patterns
+- Practice real-world business rules
+
+### 4️⃣ **Schema Design Best Practices**
+- Review `src/schema/schema.graphql` for advanced patterns
+- Learn input type design
+- Understand schema evolution principles
+
+## 🔧 Development Scripts
+
+```bash
+# Development with hot reload
+npm run build:dev
+
+# Production build
+npm run build
+
+# Start production server
+npm start
+```
+
+## 📡 Data Source
+
+This API uses JSON files for data storage to focus on GraphQL learning:
+
+- 📚 **Student Data** - Complete student profiles with course enrollments
+- 📖 **Course Data** - Detailed course information with relationships
+- 🔄 **Dynamic Updates** - Real-time data manipulation
+- ✅ **Data Validation** - Duplicate prevention and consistency checks
+
+## 🧪 Testing with Postman
+
+Import the collection from `postman-collection/Api-Graphql-Academia-online.postman_collection.json`:
+
+- 📂 **Organized queries** - Separated by functionality
+- 🔢 **Variable examples** - Pre-configured test data
+- 🎯 **CRUD operations** - Complete lifecycle testing
+- 📋 **Ready to use** - Import and start testing immediately
+
+## 🎯 Use Cases
+
+### 🎓 **Educational Applications**
+- Online learning platforms
+- Student management systems
+- Course catalog applications
+
+### 📊 **Business Applications**
+- Training program management
+- Certification tracking
+- Educational analytics
+
+### 🔧 **Development Training**
+- Intermediate GraphQL patterns
+- Business logic implementation
+- API design best practices
+
+## 🤝 Contributing
+
+We welcome contributions to improve this educational project:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### 💡 Contribution Ideas
+- Add more complex business logic
+- Improve error handling examples
+- Create additional resolver patterns
+- Add validation examples
+- Enhance documentation
+
+## 📚 Resources
+
+### 📖 **GraphQL Learning**
+- [GraphQL Official Documentation](https://graphql.org/learn/)
+- [Apollo Server Docs](https://www.apollographql.com/docs/apollo-server/)
+- [GraphQL Best Practices](https://graphql.org/learn/best-practices/)
+
+### 🛠️ **Development Tools**
+- [GraphQL Playground](https://github.com/graphql/graphql-playground)
+- [Apollo Studio](https://studio.apollographql.com/)
+- [Postman GraphQL Support](https://learning.postman.com/docs/sending-requests/supported-api-frameworks/graphql/)
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **Apollo GraphQL** for the excellent server framework
+- **The GraphQL Community** for continuous innovation
+- **Educational Technology** innovators who inspire better learning tools
+
+---
+
+<div align="center">
+
+**🎓 Ready to master intermediate GraphQL concepts? Start learning! 🎓**
+
+[![Back to Main Project](https://img.shields.io/badge/Back%20to%20Main-GraphQL%20Zero%20to%20Expert-blue.svg)](../README.md)
+
+</div>
                                 │
 ┌─────────────────────────────────────────────────────────────┐
 │                  Application Layer                          │
