@@ -276,3 +276,4 @@ docker-compose.override.yml
 
 
 # Local development files
+.vercel
