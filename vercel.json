@@ -2,21 +2,14 @@
     "version": 2,
     "builds": [
         {
-            "src": "rest-to-api-graphql/src/main.ts",
+            "src": "rest-to-api-graphql/build/main.js",
             "use": "@vercel/node"
         }
     ],
     "routes": [
         {
-            "src": "/graphql",
-            "dest": "/rest-to-api-graphql/src/main.ts"
-        },
-        {
             "src": "/(.*)",
-            "dest": "/rest-to-api-graphql/src/main.ts"
+            "dest": "/rest-to-api-graphql/build/main.js"
         }
-    ],
-    "env": {
-        "NODE_ENV": "production"
-    }
+    ]
 }
