@@ -37,3 +37,23 @@ process.on('SIGINT', () => {
 if (require.main === module) {
     startServer();
 }
+
+// Export for Vercel
+let serverInstance: GraphQLServer | null = null;
+
+export default async function handler(req: any, res: any) {
+    try {
+        if (!serverInstance) {
+            serverInstance = new GraphQLServer();
+            await serverInstance.getApolloServer().start();
+            serverInstance.getApolloServer().applyMiddleware({ 
+                app: serverInstance.getApp() as any 
+            });
+        }
+        
+        return serverInstance.getApp()(req, res);
+    } catch (error) {
+        console.error('❌ Handler error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}

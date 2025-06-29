@@ -15,5 +15,8 @@
             "src": "/(.*)",
             "dest": "/rest-to-api-graphql/src/main.ts"
         }
-    ]
+    ],
+    "env": {
+        "NODE_ENV": "production"
+    }
 }
