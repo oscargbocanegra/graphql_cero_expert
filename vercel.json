@@ -1,0 +1,18 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "rest-to-api-graphql/src/main.ts",
+            "use": "@vercel/node",
+            "config": {
+                "includeFiles": ["build/graphql/schema/**/*.graphql"] 
+            }
+        }
+    ],
+    "routes": [
+        {
+            "src": "/*.",
+            "dest": "rest-to-api-graphql/src/main.ts"
+        }
+    ]
+}
