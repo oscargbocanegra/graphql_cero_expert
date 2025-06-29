@@ -2,7 +2,10 @@
 
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-4.5+-blue.svg)](https://www.typescriptlang.org/)
-[![GraphQL](https://img.shields.io/badge/GraphQL-16+-e10098.s## 🚀 Local Development
+[![GraphQL](https://img.shields.io/badge/GraphQL-16+-e10098.svg)](https://graphql.org/)
+[![Apollo Server](https://img.shields.io/badge/Apollo%20Server-3+-311C87.svg)](https://www.apollographql.com/)
+[![OpenF1 API](https://img.shields.io/badge/OpenF1%20API-Live%20Data-red.svg)](https://openf1.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ### 🖥️ Running Locally
 
@@ -22,7 +25,35 @@ Your GraphQL playground will be available at:
 http://localhost:5000/graphql
 ```
 
-### Manual Deploy Options
+## 🌐 Live Demo
+
+### ✨ **Production URL**
+The API is deployed and running live on Vercel:
+
+- **🏠 Homepage**: https://f1-rest-to-api-graphql-4jj4jfsve-oscargbocanegras-projects.vercel.app/
+- **🚀 GraphQL API**: https://f1-rest-to-api-graphql-4jj4jfsve-oscargbocanegras-projects.vercel.app/graphql
+
+Try it now! Open the GraphQL playground and start exploring Formula 1 data in real-time.
+
+## 🚀 Deployment
+
+### ✅ **Live on Vercel**
+The API is currently deployed and running on:
+- **Production URL**: https://f1-rest-to-api-graphql-4jj4jfsve-oscargbocanegras-projects.vercel.app/graphql
+
+### 🛠️ **Deploy Your Own**
+
+#### **Vercel (Recommended)**
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Build the project
+npm run build
+
+# Deploy to Vercel
+vercel --prod
+```
 
 #### **Heroku**
 ```bash
@@ -30,7 +61,14 @@ git push heroku main
 ```
 
 #### **Railway**
-Connect your GitHub repository and Railway will handle the rest.org/)
+Connect your GitHub repository and Railway will handle the rest.
+
+### ⚙️ **Vercel Configuration**
+The project includes a `vercel.json` configuration file that:
+- ✅ Builds the TypeScript code to `build/main.js`
+- ✅ Serves static files from `public/`
+- ✅ Routes GraphQL requests to the API handler
+- ✅ Provides a beautiful landing page at the root URLorg/)
 [![Apollo Server](https://img.shields.io/badge/Apollo%20Server-3+-311C87.svg)](https://www.apollographql.com/)
 [![OpenF1 API](https://img.shields.io/badge/OpenF1%20API-Live%20Data-red.svg)](https://openf1.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -69,14 +107,19 @@ cd rest-to-api-graphql
 npm install
 
 # Start development server
-npm run build:dev
+npm run dev
 ```
 
 ### 🚀 Server Running
 
-Your GraphQL playground will be available at:
+Your local GraphQL playground will be available at:
 ```
 http://localhost:5000/graphql
+```
+
+Or try the **live demo** at:
+```
+https://f1-rest-to-api-graphql-4jj4jfsve-oscargbocanegras-projects.vercel.app/graphql
 ```
 
 ## 📊 API Features
@@ -239,13 +282,19 @@ src/
 
 ```bash
 # Development with hot reload
-npm run build:dev
+npm run dev
 
 # Production build
 npm run build
 
 # Start production server
 npm start
+
+# Clean build (removes old build files)
+npm run build:clean
+
+# Deploy to Vercel
+vercel --prod
 ```
 
 ## 📡 Data Source
@@ -307,7 +356,23 @@ We welcome contributions! This is an educational project aimed at helping develo
 
 ## � Deployment
 
-### Quick Deploy Options
+### ✅ **Live on Vercel**
+The API is currently deployed and running on:
+- **Production URL**: https://f1-rest-to-api-graphql-4jj4jfsve-oscargbocanegras-projects.vercel.app/graphql
+
+### 🛠️ **Deploy Your Own**
+
+#### **Vercel (Recommended)**
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Build the project
+npm run build
+
+# Deploy to Vercel
+vercel --prod
+```
 
 #### **Heroku**
 ```bash
@@ -316,6 +381,13 @@ git push heroku main
 
 #### **Railway**
 Connect your GitHub repository and Railway will handle the rest.
+
+### ⚙️ **Vercel Configuration**
+The project includes a `vercel.json` configuration file that:
+- ✅ Builds the TypeScript code to `build/main.js`
+- ✅ Serves static files from `public/`
+- ✅ Routes GraphQL requests to the API handler
+- ✅ Provides a beautiful landing page at the root URL
 
 ### 📋 **Detailed Deployment Guide**
 For complete deployment instructions, troubleshooting, and platform-specific configurations, see **[DEPLOYMENT.md](./DEPLOYMENT.md)**
