@@ -2,17 +2,26 @@
     "version": 2,
     "builds": [
         {
-            "src": "rest-to-api-graphql/src/main.ts",
-            "use": "@vercel/node",
-            "config": {
-                "includeFiles": ["build/graphql/schema/**/*.graphql"] 
-            }
+            "src": "rest-to-api-graphql/build/main.js",
+            "use": "@vercel/node"
         }
     ],
     "routes": [
         {
-            "src": "/*.",
-            "dest": "rest-to-api-graphql/src/main.ts"
+            "src": "/graphql",
+            "dest": "/rest-to-api-graphql/build/main.js"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/rest-to-api-graphql/build/main.js"
         }
-    ]
+    ],
+    "functions": {
+        "rest-to-api-graphql/build/main.js": {
+            "maxDuration": 30
+        }
+    },
+    "env": {
+        "NODE_ENV": "production"
+    }
 }
