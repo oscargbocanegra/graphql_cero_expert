@@ -1,22 +1,14 @@
 # 🚀 GraphQL Zero to Expert
 
-[![Node.js](https://img.shields.io/badge/Node.js-18.19.1-339933?style├── 🏎️ rest-to-api-graphql/         # Advanced: Professional API
-│   ├── 📋 package.json             # Production dependencies
-│   ├── 🔧 src/                     # Professional structure
-│   ├── 📊 data/                    # F1 data sources (13+ endpoints)
-│   ├── 📊 schema/                  # Complete GraphQL schema
-│   ├── 🧪 postman-collection/      # Comprehensive testing
-│   ├── 🚀 DEPLOYMENT.md            # Complete deployment guide
-│   ├── ⚡ QUICK-DEPLOY.md          # 2-minute deployment solution
-│   ├── 🔧 package.json           # Dependencies and scripts
-│   ├── 📄 Procfile                 # Heroku configuration
-│   └── 📖 README.md                # Professional documentatione-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-18.19.1-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Apollo Server](https://img.shields.io/badge/Apollo%20Server-4.12.2-311C87?style=for-the-badge&logo=apollo-graphql&logoColor=white)](https://www.apollographql.com/docs/apollo-server/)
 [![GraphQL](https://img.shields.io/badge/GraphQL-16.11.0-E10098?style=for-the-badge&logo=graphql&logoColor=white)](https://graphql.org/)
 [![Express](https://img.shields.io/badge/Express-4.21.2-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
-[![WebSockets](https://img.shields.io/badge/WebSockets-8.18.2-010101?style=for-the-badge&logo=socket.io&logoColor=white)](https://github.com/websockets/ws)
+[![TypeScript](https://img.shields.io/badge/TypeScript-4.9+-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-> **A complete learning project to master GraphQL with Apollo Server 4, Express, and WebSockets from scratch to advanced level.**
+> **A complete learning project to master GraphQL with Apollo Server 4, Express, and TypeScript from scratch to advanced level, featuring a live F1 API deployed on Vercel.**
 
 ## 🎯 What is this project?
 
@@ -45,7 +37,7 @@ This is a comprehensive **GraphQL learning ecosystem** featuring **three progres
 
 ---
 
-### 🎬 **2. Academia Online Project** - [`academia-online/`](./academia-online/)
+### 🎓 **2. Academia Online Project** - [`academia-online/`](./academia-online/)
 > **Intermediate level** - Real-world application patterns
 
 **What you'll learn:**
@@ -67,14 +59,14 @@ This is a comprehensive **GraphQL learning ecosystem** featuring **three progres
 ---
 
 ### 🏎️ **3. Formula 1 API Project** - [`rest-to-api-graphql/`](./rest-to-api-graphql/)
-> **Advanced level** - Professional real-time GraphQL API
+> **Advanced level** - Professional real-time GraphQL API **LIVE ON VERCEL** 🌐
 
 **What you'll learn:**
 - ✅ REST to GraphQL transformation
 - ✅ Real-time data integration
 - ✅ Advanced filtering and pagination
 - ✅ TypeScript integration
-- ✅ Production-ready GraphQL patterns
+- ✅ Production deployment with Vercel
 - ✅ External API integration
 - ✅ Complex data source management
 
@@ -85,7 +77,7 @@ This is a comprehensive **GraphQL learning ecosystem** featuring **three progres
 - Real-time data from OpenF1 API
 - Advanced pagination strategies
 - Comprehensive type safety
-- Professional API documentation
+- **DEPLOYED LIVE**: https://f1-rest-to-api-graphql-4jj4jfsve-oscargbocanegras-projects.vercel.app/graphql
 
 **[📖 View rest-to-api-graphql Documentation →](./rest-to-api-graphql/README.md)**
 
@@ -93,13 +85,13 @@ This is a comprehensive **GraphQL learning ecosystem** featuring **three progres
 
 ```
 📦 graphql_cero_expert/
-├── � holamundo/                    # Beginner: First GraphQL steps
+├── 🔰 holamundo/                    # Beginner: First GraphQL steps
 │   ├── 📋 package.json             # Basic dependencies
 │   ├── 🔧 server.ts                # Simple Apollo Server
-│   ├── � src/                     # Organized source code
-│   └── �📖 README.md                # Beginner documentation
+│   ├── 📁 src/                     # Organized source code
+│   └── 📖 README.md                # Beginner documentation
 │
-├── � academia-online/              # Intermediate: Real-world app
+├── 🎓 academia-online/              # Intermediate: Real-world app
 │   ├── 📋 package.json             # Educational dependencies
 │   ├── 🔧 src/                     # Structured application
 │   ├── 📊 data/                    # Students & courses data
@@ -109,39 +101,26 @@ This is a comprehensive **GraphQL learning ecosystem** featuring **three progres
 ├── 🏎️ rest-to-api-graphql/         # Advanced: Professional API
 │   ├── 📋 package.json             # Production dependencies
 │   ├── 🔧 src/                     # Professional structure
-│   ├── � data/                    # F1 data sources (13+ endpoints)
+│   ├── 📊 data/                    # F1 data sources (13+ endpoints)
 │   ├── 📊 schema/                  # Complete GraphQL schema
 │   ├── 🧪 postman-collection/      # Comprehensive testing
+│   ├── 🌐 public/                  # Static files for Vercel
+│   ├── 🔧 vercel.json              # Deployment configuration
 │   └── 📖 README.md                # Professional documentation
 │
+├── 🔧 vercel.json                   # Global Vercel configuration
 ├── 📖 README.md                     # This main documentation
-└── � package.json                 # Root project configuration
+└── 📄 package.json                 # Root project configuration
 ```
 
-## 🎓 Recommended Learning Path
-
-### **Step 1: Foundation** 🔰
-Start with **[holamundo/](./holamundo/)** to understand:
-- GraphQL basics and syntax
-- Schema definition
-- Simple queries and mutations
-- Apollo Server setup
-
-### **Step 2: Application Development** 🎓  
-Continue with **[academia-online/](./academia-online/)** to learn:
-- Complex data relationships
-- Real-world application patterns
-- Business logic implementation
-- Advanced resolvers
-
-### **Step 3: Professional Development** 🏎️
-Master with **[rest-to-api-graphql/](./rest-to-api-graphql/)** to achieve:
-- Production-ready APIs
-- External service integration
-- Advanced patterns and optimizations
-- Real-time data handling
-
 ## ⚡ Quick Start
+
+### 🌐 **Option 0: Try the Live Demo (No Installation Required)**
+**🏎️ Formula 1 GraphQL API - Live on Vercel:**
+- **🚀 API Playground**: https://f1-rest-to-api-graphql-4jj4jfsve-oscargbocanegras-projects.vercel.app/graphql
+- **🏠 Homepage**: https://f1-rest-to-api-graphql-4jj4jfsve-oscargbocanegras-projects.vercel.app/
+
+*Perfect for: Immediate GraphQL exploration without setup*
 
 ### 🚀 Option 1: Start with Hello World (Recommended for beginners)
 ```bash
@@ -150,7 +129,7 @@ cd holamundo
 
 # Install dependencies and start
 npm install
-npm run build:dev
+npm run dev
 
 # Access: http://localhost:5000/graphql
 ```
@@ -162,7 +141,7 @@ cd academia-online
 
 # Install dependencies and start
 npm install
-npm run build:dev
+npm run dev
 
 # Access: http://localhost:5000/graphql
 ```
@@ -174,86 +153,9 @@ cd rest-to-api-graphql
 
 # Install dependencies and start
 npm install
-npm run build:dev
+npm run dev
 
 # Access: http://localhost:5000/graphql
-```
-
-### 🔧 Option 4: Global Installation
-```bash
-# Install dependencies for all projects
-npm run install:all
-
-# Choose your starting point based on your level!
-```
-
-## 🎓 Learning Path
-
-### 🔰 **Level 1: Fundamentals** (Port 4000)
-**What you'll learn:**
-- Basic GraphQL schema design
-- Simple queries and mutations
-- Apollo Server 4 setup with Express
-- CORS configuration
-- GraphQL Playground basics
-
-**Example Operations:**
-```graphql
-# Query users
-query {
-  users {
-    id
-    name
-    email
-  }
-}
-
-# Add a user
-mutation {
-  addUser(name: "John Doe", email: "john@example.com") {
-    id
-    name
-  }
-}
-```
-
-### 🎬 **Level 2: Advanced Features** (Port 4001)
-**What you'll learn:**
-- Complex schema with relationships
-- Real-time subscriptions with WebSockets
-- File serving and static assets
-- Data persistence (JSONL format)
-- REST API compatibility
-- Error handling and validation
-- Performance optimization
-
-**Example Operations:**
-```graphql
-# Get Breaking Bad characters
-query {
-  characters {
-    char_id
-    name
-    portrayed
-    votes
-  }
-}
-
-# Vote for a character
-mutation {
-  voteForCharacter(char_id: 1) {
-    character_name
-    voted_at
-  }
-}
-
-# Real-time vote updates
-subscription {
-  voteUpdates {
-    character_name
-    total_votes
-  }
-}
 ```
 
 ## 🛠️ Technologies & Features
@@ -264,6 +166,7 @@ subscription {
 - **GraphQL** - Query language and runtime (all projects)
 - **TypeScript** - Type safety (rest-to-api-graphql)
 - **Node.js 18+** - Runtime environment (all projects)
+- **Vercel** - Cloud deployment platform (rest-to-api-graphql deployed live)
 
 ### 📊 **What Each Project Teaches**
 
@@ -271,7 +174,7 @@ subscription {
 |---------|-------|--------------|--------------|
 | 🔰 **holamundo** | Beginner | Basic GraphQL, Simple CRUD | Apollo Server, Express |
 | 🎓 **academia-online** | Intermediate | Relationships, Business Logic | GraphQL Schema Design |
-| 🏎️ **rest-to-api-graphql** | Advanced | Real-time Data, External APIs | TypeScript, OpenF1 API |
+| 🏎️ **rest-to-api-graphql** | Advanced | Real-time Data, External APIs, Deployment | TypeScript, OpenF1 API, Vercel |
 
 ## 🎯 Learning Objectives by Project
 
@@ -298,36 +201,31 @@ By completing this project, you'll achieve:
 - ✅ Advanced pagination strategies
 - ✅ TypeScript integration with GraphQL
 - ✅ Production-ready GraphQL patterns
-- ✅ Performance optimization techniques
+- ✅ Cloud deployment with Vercel
 
 ## 📋 Available Scripts & Commands
-
-### 🌐 **Global Commands** (from root directory)
-| Command | Description | Purpose |
-|---------|-------------|---------|
-| `npm run install:all` | Install dependencies for all projects | Initial setup |
-| `npm run clean:all` | Clean node_modules from all projects | Maintenance |
 
 ### 🔰 **Holamundo Commands** (from holamundo/ directory)
 | Command | Description | Port |
 |---------|-------------|------|
 | `npm start` | 🔰 Basic GraphQL server | 5000 |
-| `npm run build:dev` | 🔄 Development with hot reload | 5000 |
+| `npm run dev` | 🔄 Development with hot reload | 5000 |
 
 ### 🎓 **Academia Online Commands** (from academia-online/ directory)
 | Command | Description | Port |
 |---------|-------------|------|
 | `npm start` | 🎓 Academia GraphQL server | 5000 |
-| `npm run build:dev` | 🔄 Development with hot reload | 5000 |
+| `npm run dev` | 🔄 Development with hot reload | 5000 |
 
-### �️ **Formula 1 API Commands** (from rest-to-api-graphql/ directory)
+### 🏎️ **Formula 1 API Commands** (from rest-to-api-graphql/ directory)
 | Command | Description | Port |
 |---------|-------------|------|
 | `npm start` | 🏎️ Production F1 GraphQL API | 5000 |
-| `npm run build:dev` | 🔄 Development with hot reload | 5000 |
-| `npm run build` | � Production build | - |
+| `npm run dev` | 🔄 Development with hot reload | 5000 |
+| `npm run build` | 🔧 Production build | - |
+| `vercel --prod` | 🚀 Deploy to Vercel | - |
 
-## 📊 Project Comparison & Examples
+## 📊 Project Examples
 
 ### 🔰 **Holamundo - Simple User Management**
 ```graphql
@@ -411,104 +309,6 @@ query {
 }
 ```
 
-##  Getting Started
-
-### Prerequisites
-- **Node.js 18.19.1** or higher
-- **npm** or **yarn** package manager
-- Basic understanding of JavaScript and APIs
-- GraphQL curiosity and enthusiasm! 🎓
-
-### Installation Steps
-
-1. **Clone the repository**
-   ```bash
-   git clone <your-repo-url>
-   cd graphql_cero_expert
-   ```
-
-2. **Choose your learning path:**
-
-   **🔰 For Beginners - Start with Hello World:**
-   ```bash
-   cd holamundo
-   npm install
-   npm run build:dev
-   # Visit: http://localhost:5000/graphql
-   ```
-
-   **🎓 For Intermediate - Try Academia Online:**
-   ```bash
-   cd academia-online  
-   npm install
-   npm run build:dev
-   # Visit: http://localhost:5000/graphql
-   ```
-
-   **🏎️ For Advanced - Explore F1 API:**
-   ```bash
-   cd rest-to-api-graphql
-   npm install  
-   npm run build:dev
-   # Visit: http://localhost:5000/graphql
-   ```
-
-3. **Open GraphQL Playground in your browser**
-   - Each project runs on http://localhost:5000/graphql
-   - Explore the schema and try the example queries!
-
-## 🎯 Usage Examples
-
-### Getting Started with Each Project
-
-#### 🔰 **Holamundo** (Beginner-friendly)
-```bash
-cd holamundo
-npm install && npm run build:dev
-```
-**Perfect for:** Learning GraphQL basics, understanding schemas, first queries
-
-#### 🎓 **Academia Online** (Real-world application)  
-```bash
-cd academia-online
-npm install && npm run build:dev
-```
-**Perfect for:** Understanding relationships, business logic, practical GraphQL
-
-#### 🏎️ **Formula 1 API** (Production-ready)
-```bash
-cd rest-to-api-graphql
-npm install && npm run build:dev
-```
-**Perfect for:** Advanced patterns, external APIs, professional development
-
-## 🧪 Testing the Projects
-
-### 🔰 **Holamundo Testing**
-- **GraphQL Playground**: http://localhost:5000/graphql
-- **Simple queries** for learning GraphQL syntax
-- **Basic mutations** for understanding data modification
-
-### 🎓 **Academia Online Testing**  
-- **GraphQL Playground**: http://localhost:5000/graphql
-- **Complex relationship queries** between students and courses
-- **Educational business logic** mutations and validations
-
-### 🏎️ **Formula 1 API Testing**
-- **GraphQL Playground**: http://localhost:5000/graphql
-- **Postman Collection**: Import from `src/postman-collection/`
-- **13+ different endpoints** with real F1 data
-- **Advanced filtering** and pagination examples
-- **Live telemetry data** during race weekends
-
-## 📖 Detailed Documentation
-
-Each project has its own comprehensive documentation:
-
-- 📖 **[Holamundo Documentation](./holamundo/README.md)** - GraphQL basics and fundamentals
-- 📖 **[Academia Online Documentation](./academia-online/README.md)** - Real-world application patterns  
-- 📖 **[Formula 1 API Documentation](./rest-to-api-graphql/README.md)** - Professional GraphQL development
-
 ## 🎓 Progressive Learning Path
 
 ### **Phase 1: Foundation (Week 1)** 🔰
@@ -533,7 +333,7 @@ Each project has its own comprehensive documentation:
 - Master external API integration
 - Learn production-ready patterns
 - Practice with real-time data
-- Understand TypeScript with GraphQL
+- Deploy to production with Vercel
 
 ## 🔗 Useful Links & Resources
 
@@ -591,9 +391,9 @@ We welcome contributions to improve these learning projects! Here's how you can 
 
 **🏁 Ready to start your GraphQL journey from zero to expert? Choose your starting point! 🏁**
 
-| 🔰 [**Start with Holamundo**](./holamundo/) | 🎓 [**Try Academia Online**](./academia-online/) | 🏎️ [**Explore F1 API**](./rest-to-api-graphql/) |
-|:---:|:---:|:---:|
-| Perfect for beginners | Great for real-world learning | Professional development |
+| 🌐 [**Live F1 API Demo**](https://f1-rest-to-api-graphql-4jj4jfsve-oscargbocanegras-projects.vercel.app/graphql) | 🔰 [**Start with Holamundo**](./holamundo/) | 🎓 [**Try Academia Online**](./academia-online/) | 🏎️ [**Explore F1 API Locally**](./rest-to-api-graphql/) |
+|:---:|:---:|:---:|:---:|
+| No setup required! | Perfect for beginners | Great for real-world learning | Professional development |
 
 [![Star this repo](https://img.shields.io/github/stars/your-username/graphql_cero_expert?style=social)](https://github.com/your-username/graphql_cero_expert)
 
