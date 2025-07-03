@@ -35,7 +35,7 @@ The API is deployed and running live on Vercel:
 
 Try it now! Open the GraphQL playground and start exploring Formula 1 data in real-time.
 
-## 🚀 Deployment
+## 🚀 Deployment.
 
 ### ✅ **Live on Vercel**
 The API is currently deployed and running on:
