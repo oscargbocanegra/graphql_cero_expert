@@ -1,0 +1,27 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "rest-to-api-graphql/public/**/*",
+            "use": "@vercel/static"
+        },
+        {
+            "src": "rest-to-api-graphql/build/main.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/graphql",
+            "dest": "/rest-to-api-graphql/build/main.js"
+        },
+        {
+            "src": "/",
+            "dest": "/rest-to-api-graphql/public/index.html"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/rest-to-api-graphql/build/main.js"
+        }
+    ]
+}

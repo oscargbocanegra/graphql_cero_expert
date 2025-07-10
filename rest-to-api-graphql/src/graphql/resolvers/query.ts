@@ -1,0 +1,252 @@
+import { IResolvers } from 'graphql-tools';
+
+const query: IResolvers = {
+    Query: {
+        async seasonsList(_: any, __: any, { dataSources }: any) {
+            try {
+                // Obtener sesiones del año 2024 (puedes cambiar el año)
+                const result = await dataSources.seasons.getSessions("2024");
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching seasons list:', error);
+                return [];
+            }
+        },
+        
+        async carData(_: any, args: any, { dataSources }: any) {
+            try {
+                // Configurar valores por defecto para paginación
+                const limit = args.limit || 50;
+                const offset = args.offset || 0;
+                
+                // Crear filtros SIN incluir limit y offset (la API no los soporta)
+                const apiFilters = { ...args };
+                delete apiFilters.limit;
+                delete apiFilters.offset;
+                
+                // Si no hay filtros de datos, pasar undefined
+                const hasDataFilters = Object.keys(apiFilters).some(key => 
+                    apiFilters[key] !== undefined
+                );
+                
+                const filtersToSend = hasDataFilters ? apiFilters : undefined;
+                
+                // Llamar al data source (sin paginación en la API)
+                const allData = await dataSources.cardata.getCarData(filtersToSend);
+                const fullData = allData || [];
+                
+                // Implementar paginación del lado del cliente
+                const total = fullData.length;
+                const startIndex = offset;
+                const endIndex = offset + limit;
+                const paginatedData = fullData.slice(startIndex, endIndex);
+                
+                // Calcular información de paginación
+                const hasNext = endIndex < total;
+                const hasPrevious = offset > 0;
+                
+                // Retornar respuesta con paginación
+                return {
+                    data: paginatedData,
+                    pagination: {
+                        total: total,
+                        limit: limit,
+                        offset: offset,
+                        hasNext: hasNext,
+                        hasPrevious: hasPrevious
+                    }
+                };
+            } catch (error) {
+                console.error('Error fetching car data:', error);
+                return {
+                    data: [],
+                    pagination: {
+                        total: 0,
+                        limit: args.limit || 50,
+                        offset: args.offset || 0,
+                        hasNext: false,
+                        hasPrevious: false
+                    }
+                };
+            }
+        },
+        
+        async drivers(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.drivers.getDrivers(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching drivers:', error);
+                return [];
+            }
+        },
+        
+        async intervals(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.intervals.getIntervals(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching intervals:', error);
+                return [];
+            }
+        },
+        
+        async laps(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.laps.getLaps(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching laps:', error);
+                return [];
+            }
+        },
+        
+        async location(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.location.getLocation(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching location:', error);
+                return [];
+            }
+        },
+        
+        async meetings(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.meetings.getMeetings(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching meetings:', error);
+                return [];
+            }
+        },
+        
+        async pit(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.pit.getPit(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching pit data:', error);
+                return [];
+            }
+        },
+        
+        async position(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.position.getPosition(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching position data:', error);
+                return [];
+            }
+        },
+        
+        async raceControl(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.racecontrol.getRaceControl(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching race control data:', error);
+                return [];
+            }
+        },
+        
+        async stints(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.stints.getStints(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching stints data:', error);
+                return [];
+            }
+        },
+        
+        async teamRadio(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.teamradio.getTeamRadio(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching team radio data:', error);
+                return [];
+            }
+        },
+        
+        async weather(_: any, args: any, { dataSources }: any) {
+            try {
+                // Si no hay argumentos, pasar undefined
+                const filters = Object.keys(args).length > 0 ? args : undefined;
+                
+                // Llamar al data source
+                const result = await dataSources.weather.getWeather(filters);
+                
+                // Retornar el resultado o array vacío
+                return result || [];
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+                return [];
+            }
+        }
+    }
+};
+
+export default query;

@@ -1,0 +1,566 @@
+# ========================================
+# GRAPHQL SCHEMA FOR FORMULA 1 API
+# ========================================
+# This schema defines a GraphQL API that provides access to Formula 1 data
+# using the public OpenF1 API as a data source.
+# 
+# Key features:
+# - Real-time F1 race data queries
+# - Advanced filtering by multiple parameters
+# - Pagination for efficient handling of large datasets
+# - Complete coverage of all race aspects
+# ========================================
+
+type Query {
+    # ========================================
+    # SEASONS AND SESSIONS
+    # ========================================
+    
+    """
+    Gets the list of all available F1 sessions
+    Includes information about seasons, circuits, countries and session types
+    """
+    seasonsList: [Sessions!]!
+    
+    # ========================================
+    # VEHICLE TELEMETRY DATA
+    # ========================================
+    
+    """
+    Gets vehicle telemetry data during sessions
+    Includes speed, RPM, throttle position, brakes, DRS, etc.
+    Supports pagination for handling large data volumes
+    """
+    carData(
+        driver_number: Int        # Driver number (e.g: 1, 44, 33)
+        session_key: Int          # Unique session identifier
+        meeting_key: Int          # Unique event/grand prix identifier
+        speed: String             # Filter by specific speed
+        date: String              # Filter by specific date/timestamp
+        rpm: String               # Filter by specific engine RPM
+        throttle: String          # Filter by throttle position (0-100%)
+        brake: Int                # Filter by brake pressure
+        drs: Int                  # Filter by DRS state (0=closed, 1=open)
+        n_gear: Int               # Filter by specific gear (1-8)
+        # Pagination parameters
+        limit: Int                # Maximum number of records to return
+        offset: Int               # Number of records to skip (for pagination)
+    ): CarDataResponse!
+    
+    # ========================================
+    # DRIVER INFORMATION
+    # ========================================
+    
+    """
+    Gets detailed information about participating drivers
+    Includes names, numbers, teams, countries of origin, etc.
+    """
+    drivers(
+        driver_number: Int        # Driver number
+        session_key: Int          # Specific session
+        meeting_key: Int          # Specific Grand Prix
+        country_code: String      # Driver's country code (e.g: "NED", "ESP")
+        team_name: String         # Team name (e.g: "Red Bull Racing")
+        name_acronym: String      # Name acronym (e.g: "VER", "HAM")
+    ): [Driver!]!
+    
+    # ========================================
+    # INTERVALS AND TIMING
+    # ========================================
+    
+    """
+    Gets time intervals between drivers during the race
+    Shows time differences relative to the leader and previous driver
+    """
+    intervals(
+        driver_number: Int        # Driver number
+        session_key: Int          # Specific session
+        meeting_key: Int          # Specific Grand Prix
+        date: String              # Specific moment in the session
+        interval: String          # Specific interval to filter
+        gap_to_leader: String     # Gap to leader to filter
+    ): [Interval!]!
+    
+    # ========================================
+    # LAPS AND SECTOR TIMES
+    # ========================================
+    
+    """
+    Gets detailed information for each completed lap
+    Includes sector times, key point speeds, and pit flags
+    """
+    laps(
+        driver_number: Int        # Driver number
+        session_key: Int          # Specific session
+        meeting_key: Int          # Specific Grand Prix
+        lap_number: Int           # Specific lap number
+        date_start: String        # Lap start time
+        lap_duration: String      # Lap duration to filter
+        is_pit_out_lap: Boolean   # If it's a pit exit lap
+    ): [Lap!]!
+    
+    # ========================================
+    # GEOGRAPHICAL POSITION ON TRACK
+    # ========================================
+    
+    """
+    Gets vehicle position coordinates on the track
+    Useful for real-time tracking and trajectory analysis
+    """
+    location(
+        driver_number: Int        # Driver number
+        session_key: Int          # Specific session
+        meeting_key: Int          # Specific Grand Prix
+        date: String              # Specific moment
+        x: String                 # X coordinate on track
+        y: String                 # Y coordinate on track
+        z: String                 # Z coordinate (elevation)
+    ): [Location!]!
+    
+    # ========================================
+    # EVENTS AND GRAND PRIX
+    # ========================================
+    
+    """
+    Gets information about F1 Grand Prix and events
+    Includes circuit details, countries, dates and official names
+    """
+    meetings(
+        meeting_key: Int          # Unique event identifier
+        year: Int                 # Season year (e.g: 2024, 2023)
+        country_name: String      # Country name (e.g: "Spain", "Monaco")
+        country_code: String      # ISO country code (e.g: "ES", "MC")
+        circuit_short_name: String # Short circuit name (e.g: "Silverstone")
+        meeting_name: String      # Grand Prix name
+        location: String          # Circuit location
+        date_start: String        # Event start date
+    ): [Meeting!]!
+    
+    # ========================================
+    # PIT STOPS
+    # ========================================
+    
+    """
+    Gets information about pit stops during sessions
+    Includes stop duration and lap when it occurred
+    """
+    pit(
+        driver_number: Int        # Driver number
+        session_key: Int          # Specific session
+        meeting_key: Int          # Specific Grand Prix
+        lap_number: Int           # Lap when the stop occurred
+        date: String              # Stop moment
+        pit_duration: String      # Stop duration to filter
+    ): [Pit!]!
+    
+    # ========================================
+    # RACE POSITIONS
+    # ========================================
+    
+    """
+    Gets driver positions during the race
+    Shows how positions change over time
+    """
+    position(
+        driver_number: Int        # Driver number
+        session_key: Int          # Specific session
+        meeting_key: Int          # Specific Grand Prix
+        position: String          # Specific position to filter
+        date: String              # Specific moment
+    ): [Position!]!
+    
+    # ========================================
+    # RACE CONTROL AND FLAGS
+    # ========================================
+    
+    """
+    Gets race control messages and information
+    Includes flags, penalties, and official communications
+    """
+    raceControl(
+        driver_number: Int        # Affected driver number
+        session_key: Int          # Specific session
+        meeting_key: Int          # Specific Grand Prix
+        lap_number: Int           # Lap when the event occurred
+        category: String          # Message category (e.g: "Flag", "SafetyCar")
+        flag: String              # Flag type (e.g: "YELLOW", "RED")
+        scope: String             # Message scope (e.g: "Track", "Sector")
+        sector: Int               # Specific sector (1, 2, 3)
+        date: String              # Event moment
+        message: String           # Message content
+    ): [RaceControl!]!
+    
+    # ========================================
+    # STINTS AND TIRE STRATEGIES
+    # ========================================
+    
+    """
+    Gets information about stints (periods with the same tire set)
+    Includes tire compound, start/end laps, and tire age
+    """
+    stints(
+        driver_number: Int        # Driver number
+        session_key: Int          # Specific session
+        meeting_key: Int          # Specific Grand Prix
+        stint_number: Int         # Stint number (1, 2, 3, etc.)
+        compound: String          # Tire compound (e.g: "SOFT", "MEDIUM")
+        lap_start: String         # Stint start lap
+        lap_end: String           # Stint end lap
+        tyre_age_at_start: String # Tire age at start
+    ): [Stint!]!
+    
+    # ========================================
+    # TEAM COMMUNICATIONS
+    # ========================================
+    
+    """
+    Gets radio communications between teams and drivers
+    Includes links to audio recordings when available
+    """
+    teamRadio(
+        driver_number: Int        # Driver number
+        session_key: Int          # Specific session
+        meeting_key: Int          # Specific Grand Prix
+        date: String              # Communication moment
+    ): [TeamRadio!]!
+    
+    # ========================================
+    # WEATHER CONDITIONS
+    # ========================================
+    
+    """
+    Gets weather data during sessions
+    Includes air and track temperature, humidity, pressure, wind and rain
+    """
+    weather(
+        session_key: Int          # Specific session
+        meeting_key: Int          # Specific Grand Prix
+        date: String              # Specific moment
+        air_temperature: String   # Air temperature to filter
+        track_temperature: String # Track temperature to filter
+        humidity: String          # Relative humidity to filter
+        pressure: String          # Atmospheric pressure to filter
+        rainfall: Int             # Rain presence (0=no, 1=yes)
+        wind_direction: String    # Wind direction to filter
+        wind_speed: String        # Wind speed to filter
+    ): [Weather!]!
+}
+# ========================================
+# DATA TYPES - DEFINITIONS
+# ========================================
+
+# ========================================
+# SESSIONS AND SEASONS
+# ========================================
+
+"""
+Represents a Formula 1 session (Practice, Qualifying, Race, etc.)
+Contains complete information about the event, circuit and timing
+"""
+type Sessions {
+    meeting_key: Int!         # Unique Grand Prix identifier
+    session_key: Int!         # Unique session identifier
+    location: String!         # Circuit location
+    date_start: String!       # Start date and time (ISO 8601)
+    date_end: String!         # End date and time (ISO 8601)
+    session_type: String!     # Type: "Practice", "Qualifying", "Race", etc.
+    session_name: String!     # Descriptive session name
+    country_key: Int!         # Unique country identifier
+    country_code: String!     # ISO country code (e.g: "ES", "IT")
+    country_name: String!     # Full country name
+    circuit_key: Int!         # Unique circuit identifier
+    circuit_short_name: String! # Short circuit name
+    gmt_offset: String!       # Time difference from GMT
+    year: Int!                # Season year
+}
+
+# ========================================
+# VEHICLE TELEMETRY
+# ========================================
+
+"""
+Real-time telemetry data from F1 vehicles
+Includes engine, brake, aerodynamic and transmission parameters
+"""
+type CarData {
+    brake: Int!               # Brake pressure (0-100%)
+    date: String!             # Data timestamp (ISO 8601)
+    driver_number: Int!       # Driver number
+    drs: Int!                 # DRS state (0=closed, 1=open)
+    meeting_key: Int!         # Grand Prix identifier
+    n_gear: Int!              # Current gear (1-8, 0=neutral)
+    rpm: Int!                 # Engine revolutions per minute
+    session_key: Int!         # Session identifier
+    speed: Int!               # Speed in km/h
+    throttle: Int!            # Throttle position (0-100%)
+}
+
+# ========================================
+# PAGINATION AND RESPONSES
+# ========================================
+
+"""
+Paginated response for vehicle telemetry data
+Allows efficient handling of large data volumes
+"""
+type CarDataResponse {
+    data: [CarData!]!         # Array of telemetry data
+    pagination: PaginationInfo! # Pagination information
+}
+
+"""
+Pagination information for efficient navigation of large datasets
+"""
+type PaginationInfo {
+    total: Int!               # Total available records
+    limit: Int!               # Number of records per page
+    offset: Int!              # Number of skipped records
+    hasNext: Boolean!         # If more pages are available
+    hasPrevious: Boolean!     # If previous pages exist
+}
+
+# ========================================
+# DRIVER INFORMATION
+# ========================================
+
+"""
+Complete information about a Formula 1 driver
+Includes personal data, team and visual representation
+"""
+type Driver {
+    broadcast_name: String    # Name shown in broadcasts
+    country_code: String      # Driver's country code (e.g: "NED")
+    driver_number: Int        # Driver number (e.g: 1, 44, 33)
+    first_name: String        # First name
+    full_name: String         # Full name
+    headshot_url: String      # Driver photo URL
+    last_name: String         # Last name
+    meeting_key: Int          # Grand Prix identifier
+    name_acronym: String      # Acronym (e.g: "VER", "HAM", "LEC")
+    session_key: Int          # Session identifier
+    team_colour: String       # Team hex color
+    team_name: String         # Team name (e.g: "Red Bull Racing")
+}
+
+# ========================================
+# INTERVALS AND TIMING
+# ========================================
+
+"""
+Time intervals between drivers during a session
+Essential for position tracking and performance analysis
+"""
+type Interval {
+    date: String              # Interval timestamp (ISO 8601)
+    driver_number: Int        # Driver number
+    gap_to_leader: Float      # Gap to leader in seconds
+    interval: Float           # Gap to previous driver in seconds
+    meeting_key: Int          # Grand Prix identifier
+    session_key: Int          # Session identifier
+}
+
+# ========================================
+# LAPS AND SECTOR ANALYSIS
+# ========================================
+
+"""
+Detailed information for each lap completed by a driver
+Includes sector times, key speeds and special conditions
+"""
+type Lap {
+    date_start: String        # Lap start timestamp (ISO 8601)
+    driver_number: Int        # Driver number
+    duration_sector_1: Float  # Sector 1 time in seconds
+    duration_sector_2: Float  # Sector 2 time in seconds
+    duration_sector_3: Float  # Sector 3 time in seconds
+    i1_speed: Int             # Speed at intermediate 1 (km/h)
+    i2_speed: Int             # Speed at intermediate 2 (km/h)
+    is_pit_out_lap: Boolean   # If it's a pit exit lap
+    lap_duration: Float       # Total lap time in seconds
+    lap_number: Int           # Lap number
+    meeting_key: Int          # Grand Prix identifier
+    segments_sector_1: [Int]  # Sector 1 mini-sector colors
+    segments_sector_2: [Int]  # Sector 2 mini-sector colors
+    segments_sector_3: [Int]  # Sector 3 mini-sector colors
+    session_key: Int          # Session identifier
+    st_speed: Int             # Speed at finish line (km/h)
+}
+
+# ========================================
+# GEOGRAPHICAL POSITION ON TRACK
+# ========================================
+
+"""
+Vehicle position coordinates on the track
+Useful for real-time tracking and trajectory analysis
+"""
+type Location {
+    date: String              # Position timestamp (ISO 8601)
+    driver_number: Int        # Driver number
+    meeting_key: Int          # Grand Prix identifier
+    session_key: Int          # Session identifier
+    x: Int                    # X coordinate on track
+    y: Int                    # Y coordinate on track
+    z: Int                    # Z coordinate (elevation)
+}
+
+# ========================================
+# EVENTS AND GRAND PRIX
+# ========================================
+
+"""
+Information about a Formula 1 Grand Prix or event
+Includes circuit details, location and scheduling
+"""
+type Meeting {
+    circuit_key: Int          # Unique circuit identifier
+    circuit_short_name: String # Short circuit name (e.g: "Silverstone")
+    country_code: String      # ISO country code (e.g: "GB")
+    country_key: Int          # Unique country identifier
+    country_name: String      # Full country name
+    date_start: String        # Event start date (ISO 8601)
+    gmt_offset: String        # Time difference from GMT
+    location: String          # Circuit location
+    meeting_key: Int          # Unique event identifier
+    meeting_name: String      # Grand Prix name
+    meeting_official_name: String # Full official event name
+    year: Int                 # Season year
+}
+
+# ========================================
+# PIT STOPS AND STRATEGY
+# ========================================
+
+"""
+Information about a pit stop during a session
+Includes timing and duration of the stop
+"""
+type Pit {
+    date: String              # Stop timestamp (ISO 8601)
+    driver_number: Int        # Driver number
+    lap_number: Int           # Lap when the stop occurred
+    meeting_key: Int          # Grand Prix identifier
+    pit_duration: Float       # Stop duration in seconds
+    session_key: Int          # Session identifier
+}
+
+# ========================================
+# RACE POSITIONS
+# ========================================
+
+"""
+Driver position at a specific moment in the session
+Allows tracking position changes over time
+"""
+type Position {
+    date: String              # Position timestamp (ISO 8601)
+    driver_number: Int        # Driver number
+    meeting_key: Int          # Grand Prix identifier
+    position: Int             # Current position (1-20)
+    session_key: Int          # Session identifier
+}
+
+# ========================================
+# RACE CONTROL AND OFFICIAL COMMUNICATIONS
+# ========================================
+
+"""
+Race control messages and communications
+Includes flags, penalties, and official events
+"""
+type RaceControl {
+    category: String          # Message category (e.g: "Flag", "Drs")
+    date: String              # Message timestamp (ISO 8601)
+    driver_number: Int        # Affected driver number (if applicable)
+    flag: String              # Flag type (e.g: "YELLOW", "RED")
+    lap_number: Int           # Lap when it occurred
+    meeting_key: Int          # Grand Prix identifier
+    message: String           # Official message content
+    scope: String             # Scope ("Track", "Sector", "Driver")
+    sector: Int               # Affected sector (1, 2, 3, if applicable)
+    session_key: Int          # Session identifier
+}
+
+# ========================================
+# STINTS AND TIRE STRATEGIES
+# ========================================
+
+"""
+Information about a stint (period with the same tire set)
+Essential for strategy analysis and tire degradation
+"""
+type Stint {
+    compound: String          # Tire compound ("SOFT", "MEDIUM", "HARD")
+    driver_number: Int        # Driver number
+    lap_end: Int              # Final lap of the stint
+    lap_start: Int            # Starting lap of the stint
+    meeting_key: Int          # Grand Prix identifier
+    session_key: Int          # Session identifier
+    stint_number: Int         # Stint number (1, 2, 3, etc.)
+    tyre_age_at_start: Int    # Tire age at start (laps)
+}
+
+# ========================================
+# TEAM COMMUNICATIONS
+# ========================================
+
+"""
+Radio communications between teams and drivers
+Includes links to audio recordings when available
+"""
+type TeamRadio {
+    date: String              # Communication timestamp (ISO 8601)
+    driver_number: Int        # Driver number
+    meeting_key: Int          # Grand Prix identifier
+    recording_url: String     # Audio recording URL (if available)
+    session_key: Int          # Session identifier
+}
+
+# ========================================
+# WEATHER CONDITIONS
+# ========================================
+
+"""
+Weather data during Formula 1 sessions
+Includes temperature, humidity, pressure, wind and rain conditions
+"""
+type Weather {
+    air_temperature: Float    # Air temperature in degrees Celsius
+    date: String              # Measurement timestamp (ISO 8601)
+    humidity: Int             # Relative humidity (0-100%)
+    meeting_key: Int          # Grand Prix identifier
+    pressure: Float           # Atmospheric pressure in mbar
+    rainfall: Int             # Rain presence (0=no, 1=yes)
+    session_key: Int          # Session identifier
+    track_temperature: Float  # Track temperature in degrees Celsius
+    wind_direction: Int       # Wind direction in degrees (0-360)
+    wind_speed: Float         # Wind speed in m/s
+}
+
+# ========================================
+# USAGE NOTES
+# ========================================
+# 
+# FILTERS AND PARAMETERS:
+# - All filters are optional
+# - Strings can use operators like ">=100" for speed
+# - Dates must be in ISO 8601 format
+# - Driver numbers range from 1 to 99
+# 
+# PAGINATION:
+# - limit: number of results per page (default: 100)
+# - offset: number of results to skip (default: 0)
+# 
+# USAGE EXAMPLES:
+# - To get telemetry data from Max Verstappen (driver #1):
+#   carData(driver_number: 1, limit: 50)
+# 
+# - To get weather information for a specific session:
+#   weather(session_key: 9158, meeting_key: 1219)
+# 
+# - To track positions during a race:
+#   position(session_key: 9158, meeting_key: 1219)
+# 
+# ========================================
+
+
