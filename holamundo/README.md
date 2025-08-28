@@ -9,7 +9,7 @@
 
 > 🚀 **Learn GraphQL from Zero** - Your first steps into GraphQL with a simple, beginner-friendly Hello World API.
 
-## 🎯 What You'll Learn
+## 🎯 What You'll Learn.
 
 This project is designed to teach GraphQL fundamentals through a simple, easy-to-understand implementation:
 
